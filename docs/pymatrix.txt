@@ -1,0 +1,244 @@
+
+Pymatrix
+========
+
+A pure-Python matrix module with support for basic linear algebra operations.
+
+Sample syntax:
+
+::: python
+
+    from pymatrix import matrix
+
+    m = matrix([
+        [1, 2],
+        [3, 4]
+    ])
+
+    a = m + m * 2
+    b = m * m
+    c = m ** 3
+
+    d = m.det()
+    e = m.inverse()
+
+
+Usage
+-----
+
+=== Instantiation ===
+
+*   Instantiate a matrix object directly, optionally specifying a fill value:
+
+    ::: python
+
+        m = Matrix(rows, cols, fill=0)
+
+*   Instantiate a matrix object from a list of lists:
+
+    ::: python
+
+        m = Matrix.FromList([
+            [1, 2, 3],
+            [4, 5, 6]
+        ])
+
+*   Instantiate a matrix object from a string:
+
+    ::: python
+
+        s = """
+        1 2 3/7
+        4/7 5 6
+        """
+
+        m = Matrix.FromString(s, rowsep=None, colsep=None, parser=fractions.Fraction)
+
+    Row separators default to newlines, column separators to spaces. Elements are parsed as fractions (rational numbers) by default.
+
+*   Instantiate an n x n identity matrix:
+
+    ::: python
+
+        m = Matrix.Identity(n)
+
+*   The shortcut `matrix()` function supports the syntax of all three static methods:
+
+    ::: python
+    
+        m = matrix('1 2 3')
+        m = matrix([[1, 2, 3]])
+        m = matrix(3)
+
+
+=== Iteration ===
+
+Matrix objects are iterable. Alternatively, the `elements()` method returns an iterator over a tuple including row and column indices:
+
+::: python
+
+    for element in matrix:
+        ...
+
+    for row, col, element in matrix.elements():
+        ...
+
+
+=== Indexing ===
+
+::: python
+
+    matrix[row][col] = element
+
+Note that indices are zero-based in accordance with programming convention rather than one-based in typical math style, i.e. the top-left element is `m[0][0]` rather than `m[1][1]`.
+
+
+=== Methods ===
+
+Matrix objects support the following methods:
+
+*   `adjoint()`
+
+    Returns the adjoint matrix as a new object.
+
+*   `cofactor(row, col)`
+
+    Returns the specified cofactor.
+
+*   `cofactors()`
+
+    Returns the matrix of cofactors as a new object.
+
+*   `col(n)`
+
+    Returns an iterator over the specified column.
+
+*   `cols()`
+
+    Returns a column iterator for each column in the matrix.
+
+*   `colvec(n)`
+
+    Returns the specified column as a new column vector.
+
+*   `copy()`
+
+    Returns a copy of the matrix.
+
+*   `del_col(col)`
+
+    Returns a new matrix with the specified column deleted.
+
+*   `del_row(row)`
+
+    Returns a new matrix with the specified row deleted.
+
+*   `det()`
+
+    Returns the determinant of the matrix.
+
+*   `dir()`
+
+    Vectors only. Returns the unit vector in the direction of the vector.
+
+*   `elements()`
+
+    Iterator returning the tuple `(row, col, element)`.
+
+*   `equals(other, delta)`
+
+    True if corresponding elements agree to within `delta`.
+
+*   `inverse()`
+
+    Returns the inverse matrix if it exists, otherwise raises MatrixError.
+
+*   `is_invertible()`
+
+    True if the matrix is invertible.
+
+*   `is_square()`
+
+    True if the matrix is square.
+
+*   `len()`
+
+    Vectors only. Returns the length of the vector.
+
+*   `map(func)`
+
+    Returns a new matrix formed by mapping `func` to each element.
+
+*   `minor(row, col)`
+
+    Returns the specified minor.
+
+*   `rank()`
+
+    Returns the rank of the matrix.
+
+*   `ref()`
+
+    Returns the row echelon form of the matrix.
+
+*   `row(n)`
+
+    Returns an iterator over the specified row.
+
+*   `rowop_add(r1, m, r2)`
+
+    In-place row operation. Adds `m` times row `r2` to row `r1`.
+
+*   `rowop_multiply(row, m)`
+
+    In-place row operation. Multiplies the specified row by the scalar `m`.
+
+*   `rowop_swap(r1, r2)`
+
+    In-place row operation. Interchanges the two specified rows.
+
+*   `rows()`
+
+    Returns a row iterator for each row in the matrix.
+
+*   `rowvec(n)`
+
+    Returns the specified row as a new row vector.
+
+*   `rref()`
+
+    Returns the reduced row echelon form of the matrix.
+
+*   `transpose()`
+
+    Returns the transpose of the matrix as a new object.
+
+
+=== Functions ===
+
+The `pymatrix` module exports the following functions:
+
+*   `dot(u, v)`
+
+    Returns `u . v` - the inner/scalar/dot product of the vectors `u` and `v`.
+
+*   `cross(u, v)`
+
+    Returns `u x v` - the vector/cross product of the 3D column vectors `u` and `v`.
+
+
+=== Exceptions ===
+
+An invalid operation on a matrix object will raise a `MatrixError` exception.
+
+
+Requirements
+------------
+
+Tested with Python 2.7 and 3.4.
+
+
+License
+-------
+
+This work has been placed in the public domain.

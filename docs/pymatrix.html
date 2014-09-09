@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Pymatrix</title>
+        <style>article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section,summary{display:block}audio,canvas,video{display:inline-block}[hidden]{display:none}html,body{margin:0;padding:0;font-size:100%}p,ul,ol,li,pre,blockquote{margin:0;padding:0}h1,h2,h3,h4,h5,h6{margin:0;padding:0;font-weight:normal}abbr[title]{border-bottom:1px dotted}form,fieldset,legend{margin:0;padding:0}button,input,select,textarea,label{margin:0;padding:0}button,input,select,textarea{font-family:inherit;font-size:inherit}table{border-collapse:collapse;border-spacing:0}img{border:0;max-width:100%}code,pre{font-family:monospace}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sup{top:-0.5em}sub{bottom:-0.25em}hr{display:block;height:1px;border:0;border-top:1px solid;margin:0;padding:0}</style>
+        <style>body{font-family:"Georgia",serif;font-size:15px;line-height:1.6;color:#333;padding:40px}.wrapper{max-width:660px;margin:0 auto;padding:40px;border:1px solid #ccc;box-shadow:0 0 10px #ddd}h1,h2,h3,h4,h5,h6{line-height:1.25}h1{margin:40px 0 20px;border-bottom:1px solid #ccc;color:black;padding-bottom:5px;font-size:32px}h2{margin:40px 0 20px;border-bottom:1px solid #ccc;color:black;padding-bottom:5px;font-size:24px}h3{margin:35px 0 20px;font-size:17px;font-weight:bold}h4,h5,h6{margin:30px 0 20px;font-size:15px;font-weight:bold}p{margin:15px 0;text-align:justify}blockquote{margin:20px 0;margin-left:10px;padding:0 30px 0 15px;border-left:3px solid #ddd;color:#666;font-style:italic}ul,ol{margin:15px 0;padding-left:20px}ul ul,ol ol,ul ol,ol ul{margin:10px 10px}li{margin:5px 0}a{color:#4183C4;text-decoration:none;border-bottom:1px dotted}a:hover{border-bottom:1px solid}pre,code{font-size:13px;font-family:Consolas,monospace;color:#222}code{margin:0 2px;padding:1px 5px;white-space:nowrap;border:1px solid #e8e8e8;border-radius:3px;background-color:#f8f8f8}pre{margin:20px 0;padding:10px 10px;border:1px solid #ccc;border-radius:3px;background-color:#f8f8f8;line-height:19px;overflow:auto}hr{margin:30px 60px;border-top:1px solid #ddd}.wrapper img{margin:20px auto;display:block}.wrapper>:first-child{margin-top:0}.wrapper>:last-child{margin-bottom:0}table{margin:30px auto;width:80%;font-size:14px}thead{background-color:#eee}tr:nth-child(even){background-color:#f8f8f8}th,td{border:1px solid #ccc;padding:6px 12px;text-align:left}table .align-center{text-align:center}table .align-right{text-align:right}</style>
+        <style>pre .bp{color:#3465a4}pre .c{color:#8f5902;font-style:italic}pre .c1{color:#8f5902;font-style:italic}pre .cm{color:#8f5902;font-style:italic}pre .cp{color:#8f5902}pre .cs{color:#8f5902;font-style:italic}pre .g{color:#222222}pre .gd{color:#a40000}pre .ge{color:#222222;font-style:italic}pre .gr{color:#ef2929}pre .gh{color:#000080;font-weight:bold}pre .gi{color:#00A000}pre .go{color:#222222;font-style:italic}pre .gp{color:#8f5902}pre .gs{color:#222222;font-weight:bold}pre .gu{color:#800080;font-weight:bold}pre .gt{color:#a40000;font-weight:bold}pre .il{color:#000088}pre .k{color:#204a87;font-weight:bold}pre .kc{color:#204a87;font-weight:bold}pre .kd{color:#204a87;font-weight:bold}pre .kn{color:#204a87;font-weight:bold}pre .kp{color:#204a87;font-weight:bold}pre .kr{color:#204a87;font-weight:bold}pre .kt{color:#204a87;font-weight:bold}pre .l{color:#222222}pre .ld{color:#222222}pre .m{color:#000088}pre .mf{color:#000088}pre .mh{color:#000088}pre .mi{color:#000088}pre .mo{color:#000088}pre .n{color:#222222}pre .na{color:#8f5902}pre .nb{color:#204a87}pre .nc{color:#222222}pre .no{color:#222222}pre .nd{color:#000088}pre .ni{color:#ce5c00}pre .ne{color:#cc0000;font-weight:bold}pre .nf{color:#222222}pre .nl{color:#f57900}pre .nn{color:#222222}pre .nt{color:#204a87;font-weight:bold}pre .nv{color:#222222}pre .nx{color:#222222}pre .o{color:#000088}pre .ow{color:#204a87;font-weight:bold}pre .p{color:#222222}pre .py{color:#222222}pre .s{color:#880000}pre .s1{color:#880000}pre .s2{color:#880000}pre .sb{color:#880000}pre .sc{color:#880000}pre .sd{color:#880000;font-style:italic}pre .se{color:#880000}pre .sh{color:#880000}pre .si{color:#880000}pre .sr{color:#880000}pre .ss{color:#880000}pre .sx{color:#880000}pre .vc{color:#222222}pre .vg{color:#222222}pre .vi{color:#222222}pre .w{color:#f8f8f8;text-decoration:underline}pre .x{color:#222222}pre .err{color:#a40000;border:1px solid #ef2929}</style>
+    </head>
+    <body>
+        <div class="wrapper">
+<h1 id="pymatrix">Pymatrix</h1>
+<p>A pure-Python matrix module with support for basic linear algebra operations.</p>
+<p>Sample syntax:</p>
+<pre class="lang-python pygments" data-lang="python">
+<span class="kn">from</span> <span class="nn">pymatrix</span> <span class="kn">import</span> <span class="n">matrix</span>
+
+<span class="n">m</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">([</span>
+    <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
+    <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
+<span class="p">])</span>
+
+<span class="n">a</span> <span class="o">=</span> <span class="n">m</span> <span class="o">+</span> <span class="n">m</span> <span class="o">*</span> <span class="mi">2</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">m</span> <span class="o">*</span> <span class="n">m</span>
+<span class="n">c</span> <span class="o">=</span> <span class="n">m</span> <span class="o">**</span> <span class="mi">3</span>
+
+<span class="n">d</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">det</span><span class="p">()</span>
+<span class="n">e</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">inverse</span><span class="p">()</span>
+</pre>
+<h2 id="usage">Usage</h2>
+<h3 id="instantiation">Instantiation</h3>
+<ul>
+<li><p>Instantiate a matrix object directly, optionally specifying a fill value:</p>
+<pre class="lang-python pygments" data-lang="python">
+<span class="n">m</span> <span class="o">=</span> <span class="n">Matrix</span><span class="p">(</span><span class="n">rows</span><span class="p">,</span> <span class="n">cols</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</pre>
+</li>
+<li><p>Instantiate a matrix object from a list of lists:</p>
+<pre class="lang-python pygments" data-lang="python">
+<span class="n">m</span> <span class="o">=</span> <span class="n">Matrix</span><span class="o">.</span><span class="n">FromList</span><span class="p">([</span>
+    <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
+    <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]</span>
+<span class="p">])</span>
+</pre>
+</li>
+<li><p>Instantiate a matrix object from a string:</p>
+<pre class="lang-python pygments" data-lang="python">
+<span class="n">s</span> <span class="o">=</span> <span class="s">&quot;&quot;&quot;</span>
+<span class="s">1 2 3/7</span>
+<span class="s">4/7 5 6</span>
+<span class="s">&quot;&quot;&quot;</span>
+
+<span class="n">m</span> <span class="o">=</span> <span class="n">Matrix</span><span class="o">.</span><span class="n">FromString</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">rowsep</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">colsep</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">parser</span><span class="o">=</span><span class="n">fractions</span><span class="o">.</span><span class="n">Fraction</span><span class="p">)</span>
+</pre>
+<p>Row separators default to newlines, column separators to spaces. Elements are parsed as fractions (rational numbers) by default.</p>
+</li>
+<li><p>Instantiate an n x n identity matrix:</p>
+<pre class="lang-python pygments" data-lang="python">
+<span class="n">m</span> <span class="o">=</span> <span class="n">Matrix</span><span class="o">.</span><span class="n">Identity</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+</pre>
+</li>
+<li><p>The shortcut <code>matrix()</code> function supports the syntax of all three static methods:</p>
+<pre class="lang-python pygments" data-lang="python">
+<span class="n">m</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">(</span><span class="s">&#39;1 2 3&#39;</span><span class="p">)</span>
+<span class="n">m</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]])</span>
+<span class="n">m</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</pre>
+</li>
+</ul>
+<h3 id="iteration">Iteration</h3>
+<p>Matrix objects are iterable. Alternatively, the <code>elements()</code> method returns an iterator over a tuple including row and column indices:</p>
+<pre class="lang-python pygments" data-lang="python">
+<span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">matrix</span><span class="p">:</span>
+    <span class="o">...</span>
+
+<span class="k">for</span> <span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">,</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">matrix</span><span class="o">.</span><span class="n">elements</span><span class="p">():</span>
+    <span class="o">...</span>
+</pre>
+<h3 id="indexing">Indexing</h3>
+<pre class="lang-python pygments" data-lang="python">
+<span class="n">matrix</span><span class="p">[</span><span class="n">row</span><span class="p">][</span><span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">element</span>
+</pre>
+<p>Note that indices are zero-based in accordance with programming convention rather than one-based in typical math style, i.e. the top-left element is <code>m[0][0]</code> rather than <code>m[1][1]</code>.</p>
+<h3 id="methods">Methods</h3>
+<p>Matrix objects support the following methods:</p>
+<ul>
+<li><p><code>adjoint()</code></p>
+<p>Returns the adjoint matrix as a new object.</p>
+</li>
+<li><p><code>cofactor(row, col)</code></p>
+<p>Returns the specified cofactor.</p>
+</li>
+<li><p><code>cofactors()</code></p>
+<p>Returns the matrix of cofactors as a new object.</p>
+</li>
+<li><p><code>col(n)</code></p>
+<p>Returns an iterator over the specified column.</p>
+</li>
+<li><p><code>cols()</code></p>
+<p>Returns a column iterator for each column in the matrix.</p>
+</li>
+<li><p><code>colvec(n)</code></p>
+<p>Returns the specified column as a new column vector.</p>
+</li>
+<li><p><code>copy()</code></p>
+<p>Returns a copy of the matrix.</p>
+</li>
+<li><p><code>del_col(col)</code></p>
+<p>Returns a new matrix with the specified column deleted.</p>
+</li>
+<li><p><code>del_row(row)</code></p>
+<p>Returns a new matrix with the specified row deleted.</p>
+</li>
+<li><p><code>det()</code></p>
+<p>Returns the determinant of the matrix.</p>
+</li>
+<li><p><code>dir()</code></p>
+<p>Vectors only. Returns the unit vector in the direction of the vector.</p>
+</li>
+<li><p><code>elements()</code></p>
+<p>Iterator returning the tuple <code>(row, col, element)</code>.</p>
+</li>
+<li><p><code>equals(other, delta)</code></p>
+<p>True if corresponding elements agree to within <code>delta</code>.</p>
+</li>
+<li><p><code>inverse()</code></p>
+<p>Returns the inverse matrix if it exists, otherwise raises MatrixError.</p>
+</li>
+<li><p><code>is_invertible()</code></p>
+<p>True if the matrix is invertible.</p>
+</li>
+<li><p><code>is_square()</code></p>
+<p>True if the matrix is square.</p>
+</li>
+<li><p><code>len()</code></p>
+<p>Vectors only. Returns the length of the vector.</p>
+</li>
+<li><p><code>map(func)</code></p>
+<p>Returns a new matrix formed by mapping <code>func</code> to each element.</p>
+</li>
+<li><p><code>minor(row, col)</code></p>
+<p>Returns the specified minor.</p>
+</li>
+<li><p><code>rank()</code></p>
+<p>Returns the rank of the matrix.</p>
+</li>
+<li><p><code>ref()</code></p>
+<p>Returns the row echelon form of the matrix.</p>
+</li>
+<li><p><code>row(n)</code></p>
+<p>Returns an iterator over the specified row.</p>
+</li>
+<li><p><code>rowop_add(r1, m, r2)</code></p>
+<p>In-place row operation. Adds <code>m</code> times row <code>r2</code> to row <code>r1</code>.</p>
+</li>
+<li><p><code>rowop_multiply(row, m)</code></p>
+<p>In-place row operation. Multiplies the specified row by the scalar <code>m</code>.</p>
+</li>
+<li><p><code>rowop_swap(r1, r2)</code></p>
+<p>In-place row operation. Interchanges the two specified rows.</p>
+</li>
+<li><p><code>rows()</code></p>
+<p>Returns a row iterator for each row in the matrix.</p>
+</li>
+<li><p><code>rowvec(n)</code></p>
+<p>Returns the specified row as a new row vector.</p>
+</li>
+<li><p><code>rref()</code></p>
+<p>Returns the reduced row echelon form of the matrix.</p>
+</li>
+<li><p><code>transpose()</code></p>
+<p>Returns the transpose of the matrix as a new object.</p>
+</li>
+</ul>
+<h3 id="functions">Functions</h3>
+<p>The <code>pymatrix</code> module exports the following functions:</p>
+<ul>
+<li><p><code>dot(u, v)</code></p>
+<p>Returns <code>u . v</code> - the inner/scalar/dot product of the vectors <code>u</code> and <code>v</code>.</p>
+</li>
+<li><p><code>cross(u, v)</code></p>
+<p>Returns <code>u x v</code> - the vector/cross product of the 3D column vectors <code>u</code> and <code>v</code>.</p>
+</li>
+</ul>
+<h3 id="exceptions">Exceptions</h3>
+<p>An invalid operation on a matrix object will raise a <code>MatrixError</code> exception.</p>
+<h2 id="requirements">Requirements</h2>
+<p>Tested with Python 2.7 and 3.4.</p>
+<h2 id="license">License</h2>
+<p>This work has been placed in the public domain.</p>
+        </div>
+    </body>
+</html>

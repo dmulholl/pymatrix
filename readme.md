@@ -21,6 +21,14 @@ Sample syntax:
     e = m.inverse()
 
 
+Installation
+------------
+
+Install directly from the Python package index:
+
+    pip install pymatrix
+
+
 Requirements
 ------------
 

@@ -26,7 +26,7 @@ Installation
 
 Install directly from the Python package index:
 
-    pip install pymatrix
+    $ pip install pymatrix
 
 
 Requirements

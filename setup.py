@@ -6,6 +6,22 @@ Pymatrix
 A lightweight matrix module in pure Python. Supports basic linear algebra 
 operations.
 
+Sample syntax::
+
+    from pymatrix import matrix
+
+    m = matrix([
+        [1, 2],
+        [3, 4]
+    ])
+
+    a = m + m * 2
+    b = m * m
+    c = m ** 3
+
+    d = m.det()
+    e = m.inv()
+
 See the module's Github homepage (https://github.com/dmulholland/pymatrix) 
 for further details.
 

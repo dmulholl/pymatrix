@@ -18,7 +18,7 @@ Sample syntax:
     c = m ** 3
 
     d = m.det()
-    e = m.inverse()
+    e = m.inv()
 
 
 Installation

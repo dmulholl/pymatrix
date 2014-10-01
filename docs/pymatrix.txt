@@ -20,7 +20,7 @@ Sample syntax:
     c = m ** 3
 
     d = m.det()
-    e = m.inverse()
+    e = m.inv()
 
 
 Usage
@@ -153,6 +153,10 @@ Matrix objects support the following methods:
 
     Returns the inverse matrix if it exists, otherwise raises MatrixError.
 
+*   `inv()`
+
+    Returns the inverse matrix if it exists, otherwise raises MatrixError.
+
 *   `is_invertible()`
 
     True if the matrix is invertible.
@@ -210,6 +214,10 @@ Matrix objects support the following methods:
     Returns the reduced row echelon form of the matrix.
 
 *   `transpose()`
+
+    Returns the transpose of the matrix as a new object.
+
+*   `trp()`
 
     Returns the transpose of the matrix as a new object.
 

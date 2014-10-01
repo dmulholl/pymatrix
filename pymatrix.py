@@ -21,7 +21,7 @@ License: Public Domain.
 
 """
 
-__version__ = "1.0.0"
+__version__ = "1.1.0"
 __all__ = ['cross', 'dot', 'matrix', 'Matrix', 'MatrixError']
 
 
@@ -211,8 +211,8 @@ class Matrix:
             m[col][row] = element
         return m
 
-    def t(self):
-        """ Returns the transpose of the matrix as a new object. """
+    def trp(self):
+        """ Alias of `.transpose()`. """
         return self.transpose()
 
     def det(self):
@@ -254,6 +254,10 @@ class Matrix:
         if rref != identity:
             raise MatrixError('matrix is non-invertible')
         return inverse
+
+    def inv(self):
+        """ Alias of `.inverse()`. """
+        return self.inverse()
 
     def del_row_col(self, row_to_delete, col_to_delete):
         """ Returns a new matrix with the specified row and column deleted. """

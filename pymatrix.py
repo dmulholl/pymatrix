@@ -2,13 +2,13 @@
 A lightweight matrix object with support for basic linear algebra
 operations.
 
-Note that matrix indices are zero-based in accordance with programming 
-convention rather than one-based in typical math style, i.e. the top-left 
+Note that matrix indices are zero-based in accordance with programming
+convention rather than one-based in typical math style, i.e. the top-left
 element in a matrix is m[0][0] rather than m[1][1].
 
 Caution: Beware of rounding errors with floats. The algorithm used to
 calculate the row echelon form (and hence the inverse, etc.) is sensitive
-to small rounding errors near zero; i.e. if a matrix contains entries 
+to small rounding errors near zero; i.e. if a matrix contains entries
 which should be zero but aren't due to rounding errors then these errors
 can be magnified by the algorithm.
 
@@ -16,12 +16,12 @@ An example of the kind of rounding error that can cause problems is:
 
     >>> 0.1 * 3 - 0.3
     5.551115123125783e-17
-    
+
 License: Public Domain.
 
 """
 
-__version__ = "1.1.0"
+__version__ = "1.1.1"
 __all__ = ['cross', 'dot', 'matrix', 'Matrix', 'MatrixError']
 
 
@@ -63,7 +63,7 @@ class MatrixError(Exception):
 
 
 class Matrix:
-    
+
     """ Matrix object supporting basic linear algebra operations. """
 
     def __init__(self, rows, cols, fill=0):
@@ -221,7 +221,7 @@ class Matrix:
             raise MatrixError('non-square matrix does not have determinant')
         ref, _, multiplier = _get_row_echelon_form(self)
         ref_det = functools.reduce(
-            operator.mul, 
+            operator.mul,
             (ref[i][i] for i in range(ref.nrows))
         )
         return ref_det / multiplier
@@ -379,15 +379,15 @@ def _equals(a, b, delta):
         return a == b
 
 
-# We determine the row echelon form of the matrix using the forward phase of 
+# We determine the row echelon form of the matrix using the forward phase of
 # the Gauss-Jordan elimination algorithm. If a `mirror` matrix is supplied,
-# we apply the same sequence of row operations to it. Note that neither 
+# we apply the same sequence of row operations to it. Note that neither
 # matrix is altered in-place; instead copies are returned.
 def _get_row_echelon_form(matrix, mirror=None):
     m = matrix.copy()
     mirror = mirror.copy() if mirror else None
     det_multiplier = 1
-    
+
     # Start with the top row and work downwards.
     for top_row in range(m.nrows):
 
@@ -431,7 +431,7 @@ def _get_row_echelon_form(matrix, mirror=None):
     return m, mirror, det_multiplier
 
 
-# Determine the reduced row echelon form of the matrix using the Gauss-Jordan 
+# Determine the reduced row echelon form of the matrix using the Gauss-Jordan
 # elimination algorithm. If a `mirror` matrix is supplied, the same sequence of
 # row operations will be applied to it. Note that neither matrix is altered
 # in-place; instead copies are returned.

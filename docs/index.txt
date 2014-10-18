@@ -23,6 +23,22 @@ Sample syntax:
     e = m.inv()
 
 
+Installation
+------------
+
+You can install Pymatrix directly from the Python package index using `pip`:
+
+    $ pip install pymatrix
+
+Alternatively, you can download the code from the project's [Github homepage][github] and run:
+
+    $ python setup.py install
+
+Pymatrix has no dependencies and has been tested with Python 2.7 and 3.4.
+
+[github]: https://github.com/dmulholland/pymatrix
+
+
 Usage
 -----
 
@@ -65,7 +81,7 @@ Usage
 *   The shortcut `matrix()` function supports the syntax of all three static methods:
 
     ::: python
-    
+
         m = matrix('1 2 3')
         m = matrix([[1, 2, 3]])
         m = matrix(3)
@@ -238,12 +254,6 @@ The `pymatrix` module exports the following functions:
 === Exceptions ===
 
 An invalid operation on a matrix object will raise a `MatrixError` exception.
-
-
-Requirements
-------------
-
-Tested with Python 2.7 and 3.4.
 
 
 License

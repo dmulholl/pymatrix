@@ -26,17 +26,11 @@ Sample syntax:
 Installation
 ------------
 
-You can install Pymatrix directly from the Python package index using `pip`:
+Install Pymatrix directly from the Python package index using `pip`:
 
     $ pip install pymatrix
 
-Alternatively, you can download the code from the project's [Github homepage][github] and run:
-
-    $ python setup.py install
-
 Pymatrix has no dependencies and has been tested with Python 2.7 and 3.4.
-
-[github]: https://github.com/dmulholland/pymatrix
 
 
 Usage
@@ -254,6 +248,14 @@ The `pymatrix` module exports the following functions:
 === Exceptions ===
 
 An invalid operation on a matrix object will raise a `MatrixError` exception.
+
+
+Links
+-----
+
+* [Github Homepage](https://github.com/dmulholland/pymatrix)
+* [Python Package Index](https://pypi.python.org/pypi/pymatrix/)
+* [Online Documentation](https://pythonhosted.org/pymatrix/)
 
 
 License

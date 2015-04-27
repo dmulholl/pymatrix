@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Guide</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="css/vanilla.css">
+        <link rel="stylesheet" href="css/pygments.css">
+        <!--[if lt IE 9]>
+            <script src="js/html5shiv.min.js"></script>
+        <![endif]-->
+        <script src="js/jquery-1.11.2.min.js"></script>
+        <script src="js/vanilla.js"></script>
+    </head>
+    <body class="pages single">
+
+        <header id="header" class="header meta">
+            <ul>
+<li><a href="index.html">Pymatrix</a></li>
+<li><a href="guide.html">Guide</a></li>
+</ul>
+        </header>
+
+        <article id="content" class="content">
+            
+
+    
+
+    <h1 id="guide">Guide</h1>
+<p>Pymatrix exports a simple, easy-to-use matrix object that supports all of Python's native numeric types, including integers, floats, and fractions (rational numbers).</p>
+<p>Be warned that this module has been built for comfort, not for speed. Users with heavy-duty computational needs should turn to an optimised alternative like <a href="http://www.numpy.org">NumPy</a> instead.</p>
+<h2 id="instantiation">Instantiation</h2>
+<p>You can instantiate a matrix object directly, optionally specifying a fill value:</p>
+<pre class="lang-python stx-pygments" data-lang="python">
+<span class="n">m</span> <span class="o">=</span> <span class="n">Matrix</span><span class="p">(</span><span class="n">rows</span><span class="p">,</span> <span class="n">cols</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</pre>
+<p>You can instantiate a matrix object from a list of lists using the <code>.FromList()</code> static method:</p>
+<pre class="lang-python stx-pygments" data-lang="python">
+<span class="n">m</span> <span class="o">=</span> <span class="n">Matrix</span><span class="o">.</span><span class="n">FromList</span><span class="p">([</span>
+    <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
+    <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]</span>
+<span class="p">])</span>
+</pre>
+<p>You can instantiate a matrix object from a string using the <code>.FromString()</code> static method:</p>
+<pre class="lang-python stx-pygments" data-lang="python">
+<span class="n">s</span> <span class="o">=</span> <span class="s">&quot;&quot;&quot;</span>
+<span class="s">1 2 3/7</span>
+<span class="s">4/7 5 6</span>
+<span class="s">&quot;&quot;&quot;</span>
+
+<span class="n">m</span> <span class="o">=</span> <span class="n">Matrix</span><span class="o">.</span><span class="n">FromString</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">rowsep</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">colsep</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">parser</span><span class="o">=</span><span class="n">fractions</span><span class="o">.</span><span class="n">Fraction</span><span class="p">)</span>
+</pre>
+<p>Row separators default to newlines, column separators default to spaces. Leading and trailing whitespace is stripped from the string. Elements are parsed as fractions (rational numbers) by default.</p>
+<p>You can instantiate an n x n identity matrix using the <code>.Identity()</code> static method:</p>
+<pre class="lang-python stx-pygments" data-lang="python">
+<span class="n">m</span> <span class="o">=</span> <span class="n">Matrix</span><span class="o">.</span><span class="n">Identity</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+</pre>
+<p>The shortcut <code>matrix()</code> function supports the syntax of all three static methods:</p>
+<pre class="lang-python stx-pygments" data-lang="python">
+<span class="n">m</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]])</span>
+<span class="n">m</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">(</span><span class="s">&#39;1 2 3&#39;</span><span class="p">)</span>
+<span class="n">m</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</pre>
+<h2 id="iteration">Iteration</h2>
+<p>Matrix objects are iterable. Iteration proceeds left-to-right by column, then top-to-bottom by row; i.e. the top-left element will be returned first, the bottom-right element will be returned last:</p>
+<pre class="lang-python stx-pygments" data-lang="python">
+<span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">matrix</span><span class="p">:</span>
+    <span class="o">...</span>
+</pre>
+<p>Alternatively, the <code>elements()</code> method returns an iterator over a tuple including row and column indices:</p>
+<pre class="lang-python stx-pygments" data-lang="python">
+<span class="k">for</span> <span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">,</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">matrix</span><span class="o">.</span><span class="n">elements</span><span class="p">():</span>
+    <span class="o">...</span>
+</pre>
+<h2 id="indexing">Indexing</h2>
+<p>Matrices are indexed as two-dimensional arrays:</p>
+<pre class="lang-python stx-pygments" data-lang="python">
+<span class="n">matrix</span><span class="p">[</span><span class="n">row</span><span class="p">][</span><span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">element</span>
+
+<span class="n">element</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">[</span><span class="n">row</span><span class="p">][</span><span class="n">col</span><span class="p">]</span>
+</pre>
+<p>Note that indices are zero-based in accordance with programming convention rather than one-based in typical math style, i.e. the matrix's top-left element is <code>matrix[0][0]</code> rather than <code>matrix[1][1]</code>.</p>
+<h2 id="matrix-methods">Matrix Methods</h2>
+<p>Matrix objects support the following methods:</p>
+<ul>
+<li><p><code>adjoint()</code></p>
+<p>Returns the adjoint matrix as a new object.</p>
+</li>
+<li><p><code>cofactor(row, col)</code></p>
+<p>Returns the specified cofactor.</p>
+</li>
+<li><p><code>cofactors()</code></p>
+<p>Returns the matrix of cofactors as a new object.</p>
+</li>
+<li><p><code>col(n)</code></p>
+<p>Returns an iterator over the specified column.</p>
+</li>
+<li><p><code>cols()</code></p>
+<p>Returns a column iterator for each column in the matrix.</p>
+</li>
+<li><p><code>colvec(n)</code></p>
+<p>Returns the specified column as a new column vector.</p>
+</li>
+<li><p><code>copy()</code></p>
+<p>Returns a copy of the matrix.</p>
+</li>
+<li><p><code>del_col(col)</code></p>
+<p>Returns a new matrix with the specified column deleted.</p>
+</li>
+<li><p><code>del_row(row)</code></p>
+<p>Returns a new matrix with the specified row deleted.</p>
+</li>
+<li><p><code>det()</code></p>
+<p>Returns the determinant of the matrix.</p>
+</li>
+<li><p><code>dir()</code></p>
+<p>Vectors only. Returns the unit vector in the direction of the vector.</p>
+</li>
+<li><p><code>elements()</code></p>
+<p>Iterator returning the tuple <code>(row, col, element)</code>.</p>
+</li>
+<li><p><code>equals(other, delta)</code></p>
+<p>True if corresponding elements agree to within <code>delta</code>.</p>
+</li>
+<li><p><code>inverse()</code></p>
+<p>Returns the inverse matrix if it exists, otherwise raises MatrixError.</p>
+</li>
+<li><p><code>inv()</code></p>
+<p>Returns the inverse matrix if it exists, otherwise raises MatrixError.</p>
+</li>
+<li><p><code>is_invertible()</code></p>
+<p>True if the matrix is invertible.</p>
+</li>
+<li><p><code>is_square()</code></p>
+<p>True if the matrix is square.</p>
+</li>
+<li><p><code>len()</code></p>
+<p>Vectors only. Returns the length of the vector.</p>
+</li>
+<li><p><code>map(func)</code></p>
+<p>Returns a new matrix formed by mapping <code>func</code> to each element.</p>
+</li>
+<li><p><code>minor(row, col)</code></p>
+<p>Returns the specified minor.</p>
+</li>
+<li><p><code>rank()</code></p>
+<p>Returns the rank of the matrix.</p>
+</li>
+<li><p><code>ref()</code></p>
+<p>Returns the row echelon form of the matrix.</p>
+</li>
+<li><p><code>row(n)</code></p>
+<p>Returns an iterator over the specified row.</p>
+</li>
+<li><p><code>rowop_add(r1, m, r2)</code></p>
+<p>In-place row operation. Adds <code>m</code> times row <code>r2</code> to row <code>r1</code>.</p>
+</li>
+<li><p><code>rowop_multiply(row, m)</code></p>
+<p>In-place row operation. Multiplies the specified row by the scalar <code>m</code>.</p>
+</li>
+<li><p><code>rowop_swap(r1, r2)</code></p>
+<p>In-place row operation. Interchanges the two specified rows.</p>
+</li>
+<li><p><code>rows()</code></p>
+<p>Returns a row iterator for each row in the matrix.</p>
+</li>
+<li><p><code>rowvec(n)</code></p>
+<p>Returns the specified row as a new row vector.</p>
+</li>
+<li><p><code>rref()</code></p>
+<p>Returns the reduced row echelon form of the matrix.</p>
+</li>
+<li><p><code>transpose()</code></p>
+<p>Returns the transpose of the matrix as a new object.</p>
+</li>
+<li><p><code>trp()</code></p>
+<p>Returns the transpose of the matrix as a new object.</p>
+</li>
+</ul>
+<h2 id="module-functions">Module Functions</h2>
+<p>The <code>pymatrix</code> module exports the following functions:</p>
+<ul>
+<li><p><code>dot(u, v)</code></p>
+<p>Returns <code>u . v</code> - the inner/scalar/dot product of the vectors <code>u</code> and <code>v</code>.</p>
+</li>
+<li><p><code>cross(u, v)</code></p>
+<p>Returns <code>u x v</code> - the vector/cross product of the 3D column vectors <code>u</code> and <code>v</code>.</p>
+</li>
+</ul>
+<h2 id="exceptions">Exceptions</h2>
+<p>An invalid operation on a matrix object will raise a <code>MatrixError</code> exception.</p>
+
+    
+
+
+        </article>
+
+        <footer id="footer" class="footer meta">
+            <ul>
+<li><a href="index.html">Pymatrix</a></li>
+<li><a href="guide.html">Guide</a></li>
+</ul>
+        </footer>
+
+    </body>
+</html>
+
+
+
+

@@ -22,7 +22,7 @@ License: Public Domain
 
 """
 
-__version__ = "1.2.0.dev"
+__version__ = "1.2.0"
 __all__ = ['cross', 'dot', 'matrix', 'Matrix', 'MatrixError']
 
 

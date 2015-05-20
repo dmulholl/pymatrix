@@ -17,7 +17,8 @@ An example of the kind of rounding error that can cause problems is:
     >>> 0.1 * 3 - 0.3
     5.551115123125783e-17
 
-License: Public Domain.
+Author: Darren Mulholland <dmulholland@outlook.ie>
+License: Public Domain
 
 """
 
@@ -67,43 +68,53 @@ class Matrix:
     """ Matrix object supporting basic linear algebra operations. """
 
     def __init__(self, rows, cols, fill=0):
+        """ Initialize a `rows` x `cols` sized matrix filled with `fill`. """
         self.nrows = rows
         self.ncols = cols
         self.grid = [[fill for i in range(cols)] for j in range(rows)]
 
     def __str__(self):
+        """ Returns a string representation of the matrix. """
         maxlen = max(len(str(e)) for e in self)
         return '\n'.join(
             ' '.join(str(e).rjust(maxlen) for e in row) for row in self.grid
         )
 
     def __repr__(self):
+        """ Returns a string representation of the object. """
         return '<%s %sx%s 0x%x>' % (
             self.__class__.__name__, self.nrows, self.ncols, id(self)
         )
 
     def __getitem__(self, key):
+        """ Enables `self[row][col]` indexing and assignment. """
         return self.grid[key]
 
     def __contains__(self, item):
+        """ Containment: `item in self`. """
         for element in self:
             if element == item:
                 return True
         return False
 
     def __neg__(self):
+        """ Negative operator: `- self`. Returns a negated copy. """
         return self.map(lambda element: -element)
 
     def __pos__(self):
+        """ Positive operator: `+ self`. Returns a copy. """
         return self.map(lambda element: element)
 
     def __eq__(self, other):
+        """ Equality: `self == other`. """
         return self.equals(other, 0)
 
     def __ne__(self, other):
+        """ Inequality: `self != other`. """
         return not self.__eq__(other)
 
     def __add__(self, other):
+        """ Addition: `self + other`. """
         if not isinstance(other, Matrix):
             raise MatrixError('cannot add %s to a matrix' % type(other))
         if self.nrows != other.nrows or self.ncols != other.ncols:
@@ -114,6 +125,7 @@ class Matrix:
         return m
 
     def __sub__(self, other):
+        """ Subtraction: `self - other`. """
         if not isinstance(other, Matrix):
             raise MatrixError('cannot subtract %s from a matrix' % type(other))
         if self.nrows != other.nrows or self.ncols != other.ncols:
@@ -124,6 +136,7 @@ class Matrix:
         return m
 
     def __mul__(self, other):
+        """ Multiplication: `self * other`. """
         if isinstance(other, Matrix):
             if self.ncols != other.nrows:
                 raise MatrixError('incompatible sizes for multiplication')
@@ -136,9 +149,15 @@ class Matrix:
             return self.map(lambda element: element * other)
 
     def __rmul__(self, other):
+        """ Multiplication: `other * self`. Note that this method is never
+        called when `other` is a Matrix object - in that case the left
+        matrix would handle the multiplication itself via its own __mul__
+        method. This method is intended to handle multiplication on the left
+        by simple numerical types. """
         return self * other
 
     def __pow__(self, other):
+        """ Exponentiation: `self ** other`. """
         if not isinstance(other, int) or other < 1:
             raise MatrixError('only positive integer powers are supported')
         m = self.copy()
@@ -147,6 +166,7 @@ class Matrix:
         return m
 
     def __iter__(self):
+        """ Iteration: `for i in self`. """
         for row in range(self.nrows):
             for col in range(self.ncols):
                 yield self[row][col]

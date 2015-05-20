@@ -3,7 +3,7 @@
 Pymatrix
 ========
 
-A lightweight matrix module in pure Python. Supports basic linear algebra
+A lightweight matrix object in pure Python. Supports basic linear algebra
 operations.
 
 Sample syntax::
@@ -22,8 +22,9 @@ Sample syntax::
     d = m.det()
     e = m.inv()
 
-See the module's online documentation (http://pythonhosted.org/pymatrix) or
-Github homepage (https://github.com/dmulholland/pymatrix) for further details.
+See the `package documentation <http://pythonhosted.org/pymatrix/>`_ or
+the project's `Github homepage <https://github.com/dmulholland/pymatrix>`_
+for further details.
 
 """
 

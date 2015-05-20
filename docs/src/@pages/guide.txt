@@ -140,7 +140,7 @@ Matrix objects support the following methods:
 
 *   `equals(other, delta)`
 
-    True if corresponding elements agree to within `delta`.
+    True if the matrices are the same size and their corresponding elements agree to within `delta`.
 
 *   `inverse()`
 
@@ -228,9 +228,12 @@ The `pymatrix` module exports the following functions:
 
     Returns `u x v` - the vector/cross product of the 3D column vectors `u` and `v`.
 
+*   `matrix()`
+
+    Shortcut function for instantiating `Matrix` objects; supports the syntax of the various static instantiation methods.
+
 
 Exceptions
 ----------
 
 An invalid operation on a matrix object will raise a `MatrixError` exception.
-

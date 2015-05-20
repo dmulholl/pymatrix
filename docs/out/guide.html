@@ -120,7 +120,7 @@
 <p>Iterator returning the tuple <code>(row, col, element)</code>.</p>
 </li>
 <li><p><code>equals(other, delta)</code></p>
-<p>True if corresponding elements agree to within <code>delta</code>.</p>
+<p>True if the matrices are the same size and their corresponding elements agree to within <code>delta</code>.</p>
 </li>
 <li><p><code>inverse()</code></p>
 <p>Returns the inverse matrix if it exists, otherwise raises MatrixError.</p>
@@ -185,6 +185,9 @@
 </li>
 <li><p><code>cross(u, v)</code></p>
 <p>Returns <code>u x v</code> - the vector/cross product of the 3D column vectors <code>u</code> and <code>v</code>.</p>
+</li>
+<li><p><code>matrix()</code></p>
+<p>Shortcut function for instantiating <code>Matrix</code> objects; supports the syntax of the various static instantiation methods.</p>
 </li>
 </ul>
 <h2 id="exceptions">Exceptions</h2>

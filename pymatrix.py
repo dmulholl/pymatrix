@@ -22,7 +22,7 @@ License: Public Domain
 
 """
 
-__version__ = "1.1.1"
+__version__ = "1.2.0.dev"
 __all__ = ['cross', 'dot', 'matrix', 'Matrix', 'MatrixError']
 
 
@@ -107,7 +107,7 @@ class Matrix:
 
     def __eq__(self, other):
         """ Equality: `self == other`. """
-        return self.equals(other, 0)
+        return self.equals(other)
 
     def __ne__(self, other):
         """ Inequality: `self != other`. """
@@ -205,13 +205,21 @@ class Matrix:
             v[row][0] = self[row][n]
         return v
 
-    def equals(self, other, delta):
-        """ True if corresponding elements agree to within `delta`. """
+    def equals(self, other, delta=None):
+        """ Returns true if `self` and `other` are identically-sized matrices
+        and their corresponding elements agree to within `delta`. If `delta`
+        is omitted, we perform a simple equality check (`==`) on corresponding
+        elements instead. """
         if self.nrows != other.nrows or self.ncols != other.ncols:
             return False
-        for row, col, element in self.elements():
-            if not _equals(element, other[row][col], delta):
-                return False
+        if delta:
+            for row, col, element in self.elements():
+                if abs(element - other[row][col]) > delta:
+                    return False
+        else:
+            for row, col, element in self.elements():
+                if element != other[row][col]:
+                    return False
         return True
 
     def elements(self):
@@ -389,14 +397,6 @@ class Matrix:
         for i in range(n):
             m[i][i] = 1
         return m
-
-
-# Test if a equals b to within delta.
-def _equals(a, b, delta):
-    if delta:
-        return abs(a - b) <= delta
-    else:
-        return a == b
 
 
 # We determine the row echelon form of the matrix using the forward phase of

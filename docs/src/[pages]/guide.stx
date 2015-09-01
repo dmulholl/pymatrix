@@ -2,9 +2,9 @@
 Guide
 =====
 
-Pymatrix exports a simple, easy-to-use matrix object that supports all of Python's native numeric types, including integers, floats, and fractions (rational numbers).
+Pymatrix exports a lightweight, easy-to-use matrix object that supports all of Python's native numeric types, including integers, floats, and fractions (rational numbers).
 
-Be warned that this module has been built for comfort, not for speed. Users with heavy-duty computational needs should turn to an optimised alternative like [NumPy](http://www.numpy.org) instead.
+Be warned that this library has been built for comfort, not for speed. Users with heavy-duty computational needs should turn to a heavily-optimised alternative like [NumPy](http://www.numpy.org) instead.
 
 
 Instantiation
@@ -16,7 +16,7 @@ You can instantiate a matrix object directly, optionally specifying a fill value
 
     m = Matrix(rows, cols, fill=0)
 
-You can instantiate a matrix object from a list of lists using the `.FromList()` static method:
+You can instantiate a matrix object from a list of lists using the `FromList()` static method:
 
 ::: python
 
@@ -25,7 +25,7 @@ You can instantiate a matrix object from a list of lists using the `.FromList()`
         [4, 5, 6]
     ])
 
-You can instantiate a matrix object from a string using the `.FromString()` static method:
+You can instantiate a matrix object from a string using the `FromString()` static method:
 
 ::: python
 
@@ -38,7 +38,7 @@ You can instantiate a matrix object from a string using the `.FromString()` stat
 
 Row separators default to newlines, column separators default to spaces. Leading and trailing whitespace is stripped from the string. Elements are parsed as fractions (rational numbers) by default.
 
-You can instantiate an n x n identity matrix using the `.Identity()` static method:
+You can instantiate an n x n identity matrix using the `Identity()` static method:
 
 ::: python
 

@@ -3,8 +3,8 @@
 Pymatrix
 ========
 
-A lightweight matrix object in pure Python. Supports basic linear algebra
-operations.
+A lightweight, easy-to-use matrix module in pure Python. Supports a range of
+basic linear algebra operations.
 
 Sample syntax::
 
@@ -22,8 +22,8 @@ Sample syntax::
     d = m.det()
     e = m.inv()
 
-See the `package documentation <http://pythonhosted.org/pymatrix/>`_ or
-the project's `Github homepage <https://github.com/dmulholland/pymatrix>`_
+See the `package documentation <http://mulholland.xyz/docs/pymatrix/>`_ or
+the library's `Github homepage <https://github.com/dmulholland/pymatrix>`_
 for further details.
 
 """
@@ -49,8 +49,7 @@ setup(
     url = 'https://github.com/dmulholland/pymatrix',
     license = 'Public Domain',
     description = (
-        'A lightweight matrix object with support for basic linear algebra '
-        'operations.'
+        'A pure-Python matrix module with support for basic linear algebra operations.'
     ),
     long_description = __doc__,
     classifiers = [

@@ -20,17 +20,17 @@ Sample syntax:
     d = m.det()
     e = m.inv()
 
-See the module's [documentation](http://pythonhosted.org/pymatrix/) for further details.
+See the module's [documentation](http://mulholland.xyz/docs/pymatrix/) for further details.
 
 
 Installation
 ------------
 
-Install directly from the Python package index:
+Install directly from the Python Package Index using `pip`:
 
     $ pip install pymatrix
 
-No dependencies. Tested with Python 2.7 and 3.4.
+Pymatrix has no dependencies and has been tested with Python 2.7 and 3.4.
 
 
 License

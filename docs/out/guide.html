@@ -1,47 +1,50 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title>Guide</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="css/theme.css">
-    <link rel="stylesheet" href="css/pygments.css">
-    <!--[if lt IE 9]><script src="js/html5shiv.min.js"></script><![endif]-->
-    <script src="js/jquery-1.11.2.min.js"></script>
-    <script src="js/theme.js"></script>
-  </head>
-  <body class="pages single">
+<head>
+	<meta charset="utf-8">
+	<title>Guide</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <header id="header" class="header meta">
-      
-        <div class="hamburger unselectable">☰</div>
-        <ul>
+	<link rel="stylesheet" href="css/theme.css">
+	<link rel="stylesheet" href="css/pygments.css">
+
+	<!--[if lt IE 9]><script src="js/html5shiv.min.js"></script><![endif]-->
+	<script src="js/jquery-1.11.2.min.js"></script>
+	<script src="js/theme.js"></script>
+</head>
+
+<body class="pages single">
+
+	<header id="header" class="header meta">
+		
+			<div class="hamburger unselectable">☰</div>
+			<ul>
 <li><a href="index.html">Pymatrix</a></li>
 <li><a href="guide.html">Guide</a></li>
 </ul>
-      
-    </header>
+		
+	</header>
 
-    <article id="content" class="content">
-      
+	<article id="content" class="content">
+		
 
-      <h1 id="guide">Guide</h1>
+		<h1 id="guide">Guide</h1>
 <p>Pymatrix exports a lightweight, easy-to-use matrix object that supports all of Python's native numeric types, including integers, floats, and fractions (rational numbers).</p>
 <p>Be warned that this library has been built for comfort, not for speed. Users with heavy-duty computational needs should turn to a heavily-optimised alternative like <a href="http://www.numpy.org">NumPy</a> instead.</p>
 <h2 id="instantiation">Instantiation</h2>
 <p>You can instantiate a matrix object directly, optionally specifying a fill value:</p>
-<pre class="lang-python stx-pygments" data-lang="python">
+<pre class="lang-python pygments" data-lang="python">
 <span class="n">m</span> <span class="o">=</span> <span class="n">Matrix</span><span class="p">(</span><span class="n">rows</span><span class="p">,</span> <span class="n">cols</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 </pre>
 <p>You can instantiate a matrix object from a list of lists using the <code>FromList()</code> static method:</p>
-<pre class="lang-python stx-pygments" data-lang="python">
+<pre class="lang-python pygments" data-lang="python">
 <span class="n">m</span> <span class="o">=</span> <span class="n">Matrix</span><span class="o">.</span><span class="n">FromList</span><span class="p">([</span>
     <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
     <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]</span>
 <span class="p">])</span>
 </pre>
 <p>You can instantiate a matrix object from a string using the <code>FromString()</code> static method:</p>
-<pre class="lang-python stx-pygments" data-lang="python">
+<pre class="lang-python pygments" data-lang="python">
 <span class="n">s</span> <span class="o">=</span> <span class="s">&quot;&quot;&quot;</span>
 <span class="s">1 2 3/7</span>
 <span class="s">4/7 5 6</span>
@@ -51,29 +54,29 @@
 </pre>
 <p>Row separators default to newlines, column separators default to spaces. Leading and trailing whitespace is stripped from the string. Elements are parsed as fractions (rational numbers) by default.</p>
 <p>You can instantiate an n x n identity matrix using the <code>Identity()</code> static method:</p>
-<pre class="lang-python stx-pygments" data-lang="python">
+<pre class="lang-python pygments" data-lang="python">
 <span class="n">m</span> <span class="o">=</span> <span class="n">Matrix</span><span class="o">.</span><span class="n">Identity</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
 </pre>
 <p>The shortcut <code>matrix()</code> function supports the syntax of all three static methods:</p>
-<pre class="lang-python stx-pygments" data-lang="python">
+<pre class="lang-python pygments" data-lang="python">
 <span class="n">m</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]])</span>
 <span class="n">m</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">(</span><span class="s">&#39;1 2 3&#39;</span><span class="p">)</span>
 <span class="n">m</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
 </pre>
 <h2 id="iteration">Iteration</h2>
 <p>Matrix objects are iterable. Iteration proceeds left-to-right by column, then top-to-bottom by row; i.e. the top-left element will be returned first, the bottom-right element will be returned last:</p>
-<pre class="lang-python stx-pygments" data-lang="python">
+<pre class="lang-python pygments" data-lang="python">
 <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">matrix</span><span class="p">:</span>
     <span class="o">...</span>
 </pre>
 <p>Alternatively, the <code>elements()</code> method returns an iterator over a tuple including row and column indices:</p>
-<pre class="lang-python stx-pygments" data-lang="python">
+<pre class="lang-python pygments" data-lang="python">
 <span class="k">for</span> <span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">,</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">matrix</span><span class="o">.</span><span class="n">elements</span><span class="p">():</span>
     <span class="o">...</span>
 </pre>
 <h2 id="indexing">Indexing</h2>
 <p>Matrices are indexed as two-dimensional arrays:</p>
-<pre class="lang-python stx-pygments" data-lang="python">
+<pre class="lang-python pygments" data-lang="python">
 <span class="n">matrix</span><span class="p">[</span><span class="n">row</span><span class="p">][</span><span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">element</span>
 
 <span class="n">element</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">[</span><span class="n">row</span><span class="p">][</span><span class="n">col</span><span class="p">]</span>
@@ -192,15 +195,15 @@
 <h2 id="exceptions">Exceptions</h2>
 <p>An invalid operation on a matrix object will raise a <code>MatrixError</code> exception.</p>
 
-      
-    </article>
+		
+	</article>
 
-    <footer id="footer" class="footer meta">
-      <ul>
+	<footer id="footer" class="footer meta">
+		<ul>
 <li><a href="index.html">Pymatrix</a></li>
 <li><a href="guide.html">Guide</a></li>
 </ul>
-    </footer>
+	</footer>
 
-  </body>
+</body>
 </html>

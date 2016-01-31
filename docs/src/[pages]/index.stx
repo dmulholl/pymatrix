@@ -22,6 +22,8 @@ Sample syntax:
     d = m.det()
     e = m.inv()
 
+See the [guide](@root/guide//) for a full list of available matrix methods.
+
 
 Installation
 ------------

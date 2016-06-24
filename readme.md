@@ -1,9 +1,7 @@
 
 # Pymatrix
 
-A pure-Python matrix module with support for basic linear algebra operations.
-
-Sample syntax:
+A pure-Python matrix module with support for basic linear algebra operations:
 
     from pymatrix import matrix
 

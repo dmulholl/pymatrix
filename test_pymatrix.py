@@ -1,9 +1,16 @@
 #!/usr/bin/env python3
-
-""" Unit tests for the pymatrix module. """
+# --------------------------------------------------------------------------
+# Unit tests for the pymatrix module.
+# --------------------------------------------------------------------------
 
 import unittest
 from pymatrix import *
+
+
+# --------------------------------------------------------------------------
+# Test matrices.
+# --------------------------------------------------------------------------
+
 
 a = matrix('''
 1 2 4
@@ -103,6 +110,11 @@ w = matrix('-3 6 -3').transpose()
 x = matrix('0 3 4').transpose()
 
 
+# --------------------------------------------------------------------------
+# Tests.
+# --------------------------------------------------------------------------
+
+
 class MatrixInstantiationTests(unittest.TestCase):
 
     def test_instantiation(self):
@@ -113,7 +125,7 @@ class MatrixInstantiationTests(unittest.TestCase):
                 self.assertEqual(element, m[rownum][colnum])
         self.assertEqual(m.nrows, 3)
         self.assertEqual(m.ncols, 3)
-        
+
     def test_instantiation_with_fill(self):
         vals = [[1, 1, 1], [1, 1, 1], [1, 1, 1]]
         m = Matrix(3, 3, 1)
@@ -122,7 +134,7 @@ class MatrixInstantiationTests(unittest.TestCase):
                 self.assertEqual(element, m[rownum][colnum])
         self.assertEqual(m.nrows, 3)
         self.assertEqual(m.ncols, 3)
-        
+
     def test_instantiation_of_identity(self):
         vals = [[1, 0, 0], [0, 1, 0], [0, 0, 1]]
         m = Matrix.Identity(3)
@@ -131,7 +143,7 @@ class MatrixInstantiationTests(unittest.TestCase):
                 self.assertEqual(element, m[rownum][colnum])
         self.assertEqual(m.nrows, 3)
         self.assertEqual(m.ncols, 3)
-        
+
     def test_instantiation_from_list(self):
         vals = [[1, 2, 4], [1, 3, 6], [-1, 0, 1]]
         m = Matrix.FromList(vals)
@@ -140,7 +152,7 @@ class MatrixInstantiationTests(unittest.TestCase):
                 self.assertEqual(element, m[rownum][colnum])
         self.assertEqual(m.nrows, 3)
         self.assertEqual(m.ncols, 3)
-        
+
     def test_instantiation_from_default_format_string(self):
         vals = [[1, 2, 4], [1, 3, 6], [-1, 0, 1]]
         for rownum, row in enumerate(vals):
@@ -179,20 +191,20 @@ class MatrixAlgebraTests(unittest.TestCase):
 
     def test_unary_positive(self):
         self.assertEqual(+a, a)
-        
+
     def test_unary_negative(self):
         self.assertEqual(-a, a_negated)
-        
+
     def test_addition(self):
         self.assertEqual(a + z3, a)
         self.assertEqual(a + b, a_plus_b)
 
     def test_addition_invalid_types(self):
         self.assertRaises(MatrixError, a.__add__, 1)
-        
+
     def test_addition_invalid_dimensions(self):
         self.assertRaises(MatrixError, a.__add__, c)
-        
+
     def test_subtraction(self):
         self.assertEqual(a - z3, a)
         self.assertEqual(a - a, z3)
@@ -200,23 +212,23 @@ class MatrixAlgebraTests(unittest.TestCase):
 
     def test_subtraction_invalid_types(self):
         self.assertRaises(MatrixError, a.__sub__, 1)
-        
+
     def test_subtraction_invalid_dimensions(self):
         self.assertRaises(MatrixError, a.__sub__, c)
-        
+
     def test_multiplication(self):
         self.assertEqual(a * i3, a)
         self.assertEqual(i3 * a, a)
         self.assertEqual(a * b, a_mul_b)
         self.assertEqual(a * c, a_mul_c)
-        
+
     def test_multiplication_invalid_dimensions(self):
         self.assertRaises(MatrixError, c.__mul__, a)
-        
+
     def test_scalar_multiplication(self):
         self.assertEqual(a * 2, a_mul_2)
         self.assertEqual(2 * a, a_mul_2)
-        
+
     def test_matrix_powers(self):
         self.assertEqual(d ** 4, d_pow_4)
 
@@ -230,35 +242,35 @@ class MatrixOperationTests(unittest.TestCase):
     def test_determinant(self):
         self.assertEqual(a.det(), 1)
         self.assertEqual(b.det(), 0)
-        
+
     def test_determinant_invalid_dimensions(self):
         self.assertRaises(MatrixError, c.det)
-        
+
     def test_cofactors(self):
         self.assertEqual(a.cofactors(), a_cofactors)
 
     def test_inverse(self):
         self.assertEqual(a.inverse(), a_inverse)
-        
+
     def test_inverse_non_invertible(self):
         self.assertRaises(MatrixError, b.inverse)
 
 
 class VectorOperationTests(unittest.TestCase):
-    
+
     def test_dot_product(self):
         self.assertEqual(dot(u, v), 32)
         self.assertEqual(dot(v, u), 32)
-    
+
     def test_cross_product(self):
         self.assertEqual(cross(u, v), w)
         self.assertEqual(cross(v, u), -w)
         self.assertEqual(cross(i, j), k)
         self.assertEqual(cross(j, i), -k)
-        
+
     def test_length(self):
         self.assertAlmostEqual(x.len(), 5)
-        
+
     def test_direction(self):
         vals = [0, 0.6, 0.8]
         unitvector = x.dir()

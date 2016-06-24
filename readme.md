@@ -1,6 +1,5 @@
 
-Pymatrix
-========
+# Pymatrix
 
 A pure-Python matrix module with support for basic linear algebra operations.
 
@@ -20,20 +19,6 @@ Sample syntax:
     d = m.det()
     e = m.inv()
 
-See the module's [documentation](http://mulholland.xyz/docs/pymatrix/) for further details.
+See the [documentation][docs] for further details.
 
-
-Installation
-------------
-
-Install directly from the Python Package Index using `pip`:
-
-    $ pip install pymatrix
-
-Pymatrix has no dependencies and has been tested with Python 2.7 and 3.4.
-
-
-License
--------
-
-This work has been placed in the public domain.
+[docs]: http://mulholland.xyz/docs/pymatrix/

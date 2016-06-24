@@ -1,5 +1,5 @@
 """
-A lightweight matrix object with support for basic linear algebra
+Pymatrix: a lightweight matrix object with support for basic linear algebra
 operations.
 
 Note that matrix indices are zero-based in accordance with programming
@@ -17,19 +17,19 @@ An example of the kind of rounding error that can cause problems is:
     >>> 0.1 * 3 - 0.3
     5.551115123125783e-17
 
-Author: Darren Mulholland <dmulholland@outlook.ie>
+Author: Darren Mulholland <darren@mulholland.xyz>
 License: Public Domain
 
 """
-
-__version__ = "1.2.1"
-__all__ = ['cross', 'dot', 'matrix', 'Matrix', 'MatrixError']
-
 
 import fractions
 import math
 import operator
 import functools
+
+
+# Library version.
+__version__ = "1.2.2"
 
 
 def matrix(*pargs, **kwargs):

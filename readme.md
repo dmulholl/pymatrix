@@ -19,6 +19,6 @@ Sample syntax:
     d = m.det()
     e = m.inv()
 
-See the [documentation][docs] for further details.
+See the [documentation][docs] for details.
 
 [docs]: http://mulholland.xyz/docs/pymatrix/

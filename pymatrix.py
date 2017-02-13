@@ -1,45 +1,58 @@
-"""
-Pymatrix: a lightweight matrix object with support for basic linear algebra
-operations.
-
-Note that matrix indices are zero-based in accordance with programming
-convention rather than one-based in typical math style, i.e. the top-left
-element in a matrix is m[0][0] rather than m[1][1].
-
-Caution: Beware of rounding errors with floats. The algorithm used to
-calculate the row echelon form (and hence the inverse, etc.) is sensitive
-to small rounding errors near zero; i.e. if a matrix contains entries
-which should be zero but aren't due to rounding errors then these errors
-can be magnified by the algorithm.
-
-An example of the kind of rounding error that can cause problems is:
-
-    >>> 0.1 * 3 - 0.3
-    5.551115123125783e-17
-
-Author: Darren Mulholland <darren@mulholland.xyz>
-License: Public Domain
-
-"""
+#!/usr/bin/env python3
+# --------------------------------------------------------------------------
+# Pymatrix: a lightweight matrix library with support for basic linear
+# algebra operations.
+#
+# Note that matrix indices are zero-based in accordance with programming
+# convention rather than one-based in typical math style, i.e. the top-left
+# element in a matrix is m[0][0] rather than m[1][1].
+#
+# Caution: Beware of rounding errors with floats. The algorithm used to
+# calculate the row echelon form (and hence the inverse, etc.) is sensitive
+# to small rounding errors near zero; i.e. if a matrix contains entries
+# which should be zero but aren't due to rounding errors then these errors
+# can be magnified by the algorithm.
+#
+# An example of the kind of rounding error that can cause problems is:
+#
+#     >>> 0.1 * 3 - 0.3
+#     5.551115123125783e-17
+#
+# Author: Darren Mulholland <darren@mulholland.xyz>
+# License: Public Domain
+# --------------------------------------------------------------------------
 
 import fractions
 import math
 import operator
 import functools
+import sys
+import os
+import argparse
+import textwrap
 
 
 # Library version.
-__version__ = "1.2.2"
+__version__ = '2.0.0b1'
+
+
+# Exports.
+__all__ = ['matrix', 'Matrix', 'MatrixError', 'dot', 'cross']
+
+
+# --------------------------------------------------------------------------
+# Library Functions
+# --------------------------------------------------------------------------
 
 
 def matrix(*pargs, **kwargs):
     """ Convenience function for instantiating Matrix objects. """
     if isinstance(pargs[0], int):
-        return Matrix.Identity(pargs[0])
+        return Matrix.identity(pargs[0])
     elif isinstance(pargs[0], str):
-        return Matrix.FromString(*pargs, **kwargs)
+        return Matrix.from_string(*pargs, **kwargs)
     elif isinstance(pargs[0], list):
-        return Matrix.FromList(*pargs, **kwargs)
+        return Matrix.from_list(*pargs, **kwargs)
     else:
         raise NotImplementedError
 
@@ -58,6 +71,11 @@ def cross(u, v):
     return w
 
 
+# --------------------------------------------------------------------------
+# Library Classes
+# --------------------------------------------------------------------------
+
+
 class MatrixError(Exception):
     """ Invalid operation attempted on a Matrix object. """
     pass
@@ -68,7 +86,7 @@ class Matrix:
     """ Matrix object supporting basic linear algebra operations. """
 
     def __init__(self, rows, cols, fill=0):
-        """ Initialize a `rows` x `cols` sized matrix filled with `fill`. """
+        """ Initialize a `rows` x `cols` matrix filled with `fill`. """
         self.nrows = rows
         self.ncols = cols
         self.grid = [[fill for i in range(cols)] for j in range(rows)]
@@ -76,9 +94,10 @@ class Matrix:
     def __str__(self):
         """ Returns a string representation of the matrix. """
         maxlen = max(len(str(e)) for e in self)
-        return '\n'.join(
+        string = '\n'.join(
             ' '.join(str(e).rjust(maxlen) for e in row) for row in self.grid
         )
+        return textwrap.dedent(string)
 
     def __repr__(self):
         """ Returns a string representation of the object. """
@@ -232,22 +251,18 @@ class Matrix:
         """ Returns a copy of the matrix. """
         return self.map(lambda element: element)
 
-    def transpose(self):
+    def trans(self):
         """ Returns the transpose of the matrix as a new object. """
         m = Matrix(self.ncols, self.nrows)
         for row, col, element in self.elements():
             m[col][row] = element
         return m
 
-    def trp(self):
-        """ Alias of `.transpose()`. """
-        return self.transpose()
-
     def det(self):
         """ Returns the determinant of the matrix. """
         if not self.is_square():
             raise MatrixError('non-square matrix does not have determinant')
-        ref, _, multiplier = _get_row_echelon_form(self)
+        ref, _, multiplier = get_row_echelon_form(self)
         ref_det = functools.reduce(
             operator.mul,
             (ref[i][i] for i in range(ref.nrows))
@@ -271,24 +286,20 @@ class Matrix:
 
     def adjoint(self):
         """ Returns the adjoint matrix as a new object. """
-        return self.cofactors().transpose()
+        return self.cofactors().trans()
 
-    def inverse(self):
+    def inv(self):
         """ Returns the inverse matrix if it exists or raises MatrixError. """
         if not self.is_square():
             raise MatrixError('non-square matrix cannot have an inverse')
-        identity = Matrix.Identity(self.nrows)
-        rref, inverse = _get_reduced_row_echelon_form(self, identity)
+        identity = Matrix.identity(self.nrows)
+        rref, inverse = get_reduced_row_echelon_form(self, identity)
         if rref != identity:
             raise MatrixError('matrix is non-invertible')
         return inverse
 
-    def inv(self):
-        """ Alias of `.inverse()`. """
-        return self.inverse()
-
     def del_row_col(self, row_to_delete, col_to_delete):
-        """ Returns a new matrix with the specified row and column deleted. """
+        """ Returns a new matrix with the specified row & column deleted. """
         return self.del_row(row_to_delete).del_col(col_to_delete)
 
     def del_row(self, row_to_delete):
@@ -335,11 +346,11 @@ class Matrix:
 
     def ref(self):
         """ Returns the row echelon form of the matrix. """
-        return _get_row_echelon_form(self)[0]
+        return get_row_echelon_form(self)[0]
 
     def rref(self):
         """ Returns the reduced row echelon form of the matrix. """
-        return _get_reduced_row_echelon_form(self)[0]
+        return get_reduced_row_echelon_form(self)[0]
 
     def len(self):
         """ Vectors only. Returns the length of the vector. """
@@ -356,7 +367,7 @@ class Matrix:
     def is_invertible(self):
         """ True if the matrix is invertible. """
         try:
-            inverse = self.inverse()
+            inverse = self.inv()
             return True
         except MatrixError:
             return False
@@ -372,7 +383,7 @@ class Matrix:
         return rank
 
     @staticmethod
-    def FromList(l):
+    def from_list(l):
         """ Instantiates a new matrix object from a list of lists. """
         m = Matrix(len(l), len(l[0]))
         for rownum, row in enumerate(l):
@@ -381,7 +392,7 @@ class Matrix:
         return m
 
     @staticmethod
-    def FromString(s, rowsep=None, colsep=None, parser=fractions.Fraction):
+    def from_string(s, rowsep=None, colsep=None, parser=fractions.Fraction):
         """ Instantiates a new matrix object from a string. """
         rows = s.strip().split(rowsep) if rowsep else s.strip().splitlines()
         m = Matrix(len(rows), len(rows[0].split(colsep)))
@@ -391,7 +402,7 @@ class Matrix:
         return m
 
     @staticmethod
-    def Identity(n):
+    def identity(n):
         """ Instantiates a new n x n identity matrix. """
         m = Matrix(n, n)
         for i in range(n):
@@ -399,24 +410,29 @@ class Matrix:
         return m
 
 
+# --------------------------------------------------------------------------
+# Algorithms
+# --------------------------------------------------------------------------
+
+
 # We determine the row echelon form of the matrix using the forward phase of
 # the Gauss-Jordan elimination algorithm. If a `mirror` matrix is supplied,
 # we apply the same sequence of row operations to it. Note that neither
 # matrix is altered in-place; instead copies are returned.
-def _get_row_echelon_form(matrix, mirror=None):
-    m = matrix.copy()
+def get_row_echelon_form(matrix, mirror=None):
+    matrix = matrix.copy()
     mirror = mirror.copy() if mirror else None
     det_multiplier = 1
 
     # Start with the top row and work downwards.
-    for top_row in range(m.nrows):
+    for top_row in range(matrix.nrows):
 
         # Find the leftmost column that is not all zeros.
         # Note: this step is sensitive to small rounding errors around zero.
         found = False
-        for col in range(m.ncols):
-            for row in range(top_row, m.nrows):
-                if m[row][col] != 0:
+        for col in range(matrix.ncols):
+            for row in range(top_row, matrix.nrows):
+                if matrix[row][col] != 0:
                     found = True
                     break
             if found:
@@ -425,53 +441,162 @@ def _get_row_echelon_form(matrix, mirror=None):
             break
 
         # Get a non-zero entry at the top of this column.
-        if m[top_row][col] == 0:
-            m.rowop_swap(top_row, row)
+        if matrix[top_row][col] == 0:
+            matrix.rowop_swap(top_row, row)
             det_multiplier *= -1
             if mirror:
                 mirror.rowop_swap(top_row, row)
 
         # Make this entry '1'.
-        if m[top_row][col] != 1:
-            multiplier = 1 / m[top_row][col]
-            m.rowop_multiply(top_row, multiplier)
-            m[top_row][col] = 1 # assign directly in case of rounding errors
+        if matrix[top_row][col] != 1:
+            multiplier = 1 / matrix[top_row][col]
+            matrix.rowop_multiply(top_row, multiplier)
+            matrix[top_row][col] = 1 # assign directly in case of rounding errors
             det_multiplier *= multiplier
             if mirror:
                 mirror.rowop_multiply(top_row, multiplier)
 
         # Make all entries below the leading '1' zero.
-        for row in range(top_row + 1, m.nrows):
-            if m[row][col] != 0:
-                multiplier = -m[row][col]
-                m.rowop_add(row, multiplier, top_row)
+        for row in range(top_row + 1, matrix.nrows):
+            if matrix[row][col] != 0:
+                multiplier = -matrix[row][col]
+                matrix.rowop_add(row, multiplier, top_row)
                 if mirror:
                     mirror.rowop_add(row, multiplier, top_row)
 
-    return m, mirror, det_multiplier
+    return matrix, mirror, det_multiplier
 
 
 # Determine the reduced row echelon form of the matrix using the Gauss-Jordan
-# elimination algorithm. If a `mirror` matrix is supplied, the same sequence of
-# row operations will be applied to it. Note that neither matrix is altered
-# in-place; instead copies are returned.
-def _get_reduced_row_echelon_form(matrix, mirror=None):
+# elimination algorithm. If a `mirror` matrix is supplied, the same sequence
+# of row operations will be applied to it. Note that neither matrix is
+# altered in-place; instead copies are returned.
+def get_reduced_row_echelon_form(matrix, mirror=None):
 
-    # Run the forward phase of the algorithm to determine the row echelon form.
-    m, mirror, ignore = _get_row_echelon_form(matrix, mirror)
+    # Forward phase: determine the row echelon form.
+    matrix, mirror, ignore = get_row_echelon_form(matrix, mirror)
 
-    # The backward phase of the algorithm. For each row, starting at the bottom
-    # and working up, find the column containing the leading 1 and make all the
-    # entries above it zero.
-    for last_row in range(m.nrows - 1, 0, -1):
-        for col in range(m.ncols):
-            if m[last_row][col] == 1:
+    # The backward phase of the algorithm. For each row, starting at the
+    # bottom and working up, find the column containing the leading 1 and
+    # make all the entries above it zero.
+    for last_row in range(matrix.nrows - 1, 0, -1):
+        for col in range(matrix.ncols):
+            if matrix[last_row][col] == 1:
                 for row in range(last_row):
-                    if m[row][col] != 0:
-                        multiplier = -m[row][col]
-                        m.rowop_add(row, multiplier, last_row)
+                    if matrix[row][col] != 0:
+                        multiplier = -matrix[row][col]
+                        matrix.rowop_add(row, multiplier, last_row)
                         if mirror:
                             mirror.rowop_add(row, multiplier, last_row)
                 break
 
-    return m, mirror
+    return matrix, mirror
+
+
+# --------------------------------------------------------------------------
+# CLI
+# --------------------------------------------------------------------------
+
+
+# Command line helptext.
+helptext = """
+Usage: %s [OPTIONS] [FLAGS]
+
+  Matrix analysis utility. A matrix can be supplied interactively via the
+  terminal or piped in from a file via stdin.
+
+Options:
+  -p, --parser <str>    One of 'int', 'float', 'complex', 'fraction'.
+
+Flags:
+      --help            Print the application's help text and exit.
+      --version         Print the application's version number and exit.
+""" % os.path.basename(sys.argv[0])
+
+
+# Custom argparse action to override the default help text.
+class HelpAction(argparse.Action):
+    def __call__(self, parser, namespace, values, option_string=None):
+        print(helptext.strip())
+        sys.exit()
+
+
+# Read in a matrix interactively from the terminal.
+def terminal_input():
+    print("# Enter Matrix")
+    lines = []
+    while True:
+        line = input("> ").strip()
+        if line:
+            lines.append(line)
+        else:
+            break
+    return '\n'.join(lines)
+
+
+# Analyse a matrix and print a report.
+def analyse(matrix):
+    rows, cols, rank = matrix.nrows, matrix.ncols, matrix.rank()
+    title = '  Rows: %s  |  Cols: %s  |  Rank: %s' % (rows, cols, rank)
+
+    if matrix.is_square():
+        det = matrix.det()
+        title += '  |  Det: %s' % det
+
+    print('-' * 80 + title + '\n' + '-' * 80)
+
+    print("\n# Input\n")
+    print(textwrap.indent(str(matrix), '  '))
+
+    print("\n# Row Echelon Form\n")
+    print(textwrap.indent(str(matrix.ref()), '  '))
+
+    print("\n# Reduced Row Echelon Form\n")
+    print(textwrap.indent(str(matrix.rref()), '  '))
+
+    if matrix.is_square():
+        if det != 0:
+            print("\n# Inverse\n")
+            print(textwrap.indent(str(matrix.inv()), '  '))
+
+        print("\n# Cofactors\n")
+        print(textwrap.indent(str(matrix.cofactors()), '  '))
+
+
+# Entry point for the command line interface.
+def main():
+    parser = argparse.ArgumentParser(add_help=False)
+    parser.add_argument('-v', '--version',
+        action="version",
+        version=__version__,
+    )
+    parser.add_argument('-h', '--help',
+        action = HelpAction,
+        nargs=0,
+    )
+    parser.add_argument('-p', '--parser',
+        help='string parser',
+        default='fraction',
+    )
+    args = parser.parse_args()
+
+    if sys.stdin.isatty():
+        string = terminal_input()
+    else:
+        string = sys.stdin.read()
+
+    options = {
+        'fraction': fractions.Fraction,
+        'int': int,
+        'float': float,
+        'complex': complex,
+    }
+
+    if args.parser in options:
+        analyse(Matrix.from_string(string, parser=options[args.parser]))
+    else:
+        sys.exit('Error: unknown parser argument.')
+
+
+if __name__ == '__main__':
+    main()

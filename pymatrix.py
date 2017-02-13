@@ -58,12 +58,12 @@ def matrix(*pargs, **kwargs):
 
 
 def dot(u, v):
-    """ Returns u . v - the dot product of vectors u and v. """
+    """ Returns u . v - the scalar product of vectors u and v. """
     return sum(map(operator.mul, u, v))
 
 
 def cross(u, v):
-    """ Returns u x v - the cross product of 3D column vectors u and v. """
+    """ Returns u x v - the vector product of 3D column vectors u and v. """
     w = Matrix(3, 1)
     w[0][0] = u[1][0] * v[2][0] - u[2][0] * v[1][0]
     w[1][0] = u[2][0] * v[0][0] - u[0][0] * v[2][0]
@@ -381,6 +381,14 @@ class Matrix:
                     rank += 1
                     break
         return rank
+
+    def dot(self, other):
+        """ Returns the scalar product: `self` . `other`. """
+        return dot(self, other)
+
+    def cross(self, other):
+        """ Returns the vector product: `self` x `other`. """
+        return cross(self, other)
 
     @staticmethod
     def from_list(l):

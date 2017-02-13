@@ -98,16 +98,16 @@ d_pow_4 = matrix('''
 
 c_transpose = matrix('''1 2 3''')
 
-i3 = Matrix.Identity(3)
+i3 = Matrix.identity(3)
 z3 = Matrix(3, 3)
 
-i = matrix('1 0 0').transpose()
-j = matrix('0 1 0').transpose()
-k = matrix('0 0 1').transpose()
-u = matrix('1 2 3').transpose()
-v = matrix('4 5 6').transpose()
-w = matrix('-3 6 -3').transpose()
-x = matrix('0 3 4').transpose()
+i = matrix('1 0 0').trans()
+j = matrix('0 1 0').trans()
+k = matrix('0 0 1').trans()
+u = matrix('1 2 3').trans()
+v = matrix('4 5 6').trans()
+w = matrix('-3 6 -3').trans()
+x = matrix('0 3 4').trans()
 
 
 # --------------------------------------------------------------------------
@@ -137,7 +137,7 @@ class MatrixInstantiationTests(unittest.TestCase):
 
     def test_instantiation_of_identity(self):
         vals = [[1, 0, 0], [0, 1, 0], [0, 0, 1]]
-        m = Matrix.Identity(3)
+        m = matrix(3)
         for rownum, row in enumerate(vals):
             for colnum, element in enumerate(row):
                 self.assertEqual(element, m[rownum][colnum])
@@ -146,7 +146,7 @@ class MatrixInstantiationTests(unittest.TestCase):
 
     def test_instantiation_from_list(self):
         vals = [[1, 2, 4], [1, 3, 6], [-1, 0, 1]]
-        m = Matrix.FromList(vals)
+        m = matrix(vals)
         for rownum, row in enumerate(vals):
             for colnum, element in enumerate(row):
                 self.assertEqual(element, m[rownum][colnum])
@@ -236,8 +236,8 @@ class MatrixAlgebraTests(unittest.TestCase):
 class MatrixOperationTests(unittest.TestCase):
 
     def test_transpose(self):
-        self.assertEqual(a.transpose(), a_transpose)
-        self.assertEqual(c.transpose(), c_transpose)
+        self.assertEqual(a.trans(), a_transpose)
+        self.assertEqual(c.trans(), c_transpose)
 
     def test_determinant(self):
         self.assertEqual(a.det(), 1)
@@ -250,10 +250,10 @@ class MatrixOperationTests(unittest.TestCase):
         self.assertEqual(a.cofactors(), a_cofactors)
 
     def test_inverse(self):
-        self.assertEqual(a.inverse(), a_inverse)
+        self.assertEqual(a.inv(), a_inverse)
 
     def test_inverse_non_invertible(self):
-        self.assertRaises(MatrixError, b.inverse)
+        self.assertRaises(MatrixError, b.inv)
 
 
 class VectorOperationTests(unittest.TestCase):

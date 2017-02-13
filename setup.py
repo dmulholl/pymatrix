@@ -45,18 +45,20 @@ setup(
     name = 'pymatrix',
     version = meta['version'],
     py_modules = ['pymatrix'],
+    entry_points = {
+        'console_scripts': [
+            'pymatrix = pymatrix:main',
+        ],
+    },
     author = 'Darren Mulholland',
     url = 'https://github.com/dmulholland/pymatrix',
     license = 'Public Domain',
     description = (
-        'A pure-Python matrix module with support for basic linear algebra operations.'
+        'A lightweight, easy-to-use matrix module in pure Python.'
     ),
     long_description = __doc__,
     classifiers = [
-        'Programming Language :: Python',
-        'Programming Language :: Python :: 2',
         'Programming Language :: Python :: 3',
-        'Development Status :: 5 - Production/Stable',
         'Operating System :: OS Independent',
         'License :: Public Domain',
         'Topic :: Scientific/Engineering :: Mathematics',

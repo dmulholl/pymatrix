@@ -4,7 +4,7 @@ Guide
 
 Pymatrix exports a lightweight, easy-to-use matrix object that supports all of Python's native numeric types, including integers, floats, and fractions (rational numbers).
 
-Be warned that this library has been built for comfort, not for speed. Users with heavy-duty computational needs should turn to a heavily-optimised alternative like [NumPy](http://www.numpy.org) instead.
+Be warned that this library has been built for comfort, not for speed. Users with heavy-duty computational needs should turn to an optimised alternative like [NumPy](http://www.numpy.org) instead.
 
 
 Instantiation
@@ -16,16 +16,16 @@ You can instantiate a matrix object directly, optionally specifying a fill value
 
     m = Matrix(rows, cols, fill=0)
 
-You can instantiate a matrix object from a list of lists using the `FromList()` static method:
+You can instantiate a matrix object from a list of lists using the `from_list()` static method:
 
 ::: python
 
-    m = Matrix.FromList([
+    m = Matrix.from_list([
         [1, 2, 3],
         [4, 5, 6]
     ])
 
-You can instantiate a matrix object from a string using the `FromString()` static method:
+You can instantiate a matrix object from a string using the `from_string()` static method:
 
 ::: python
 
@@ -34,15 +34,15 @@ You can instantiate a matrix object from a string using the `FromString()` stati
     4/7 5 6
     """
 
-    m = Matrix.FromString(s, rowsep=None, colsep=None, parser=fractions.Fraction)
+    m = Matrix.from_string(s, rowsep=None, colsep=None, parser=fractions.Fraction)
 
 Row separators default to newlines, column separators default to spaces. Leading and trailing whitespace is stripped from the string. Elements are parsed as fractions (rational numbers) by default.
 
-You can instantiate an n x n identity matrix using the `Identity()` static method:
+You can instantiate an n x n identity matrix using the `identity()` static method:
 
 ::: python
 
-    m = Matrix.Identity(n)
+    m = Matrix.identity(n)
 
 The shortcut `matrix()` function supports the syntax of all three static methods:
 
@@ -118,6 +118,10 @@ Matrix objects support the following methods:
 
     Returns a copy of the matrix.
 
+*   `cross(other)`
+
+    Returns the vector product of the matrix with `other` as a new matrix.
+
 *   `del_col(col)`
 
     Returns a new matrix with the specified column deleted.
@@ -134,6 +138,10 @@ Matrix objects support the following methods:
 
     Vectors only. Returns the unit vector in the direction of the vector.
 
+*   `dot(other)`
+
+    Returns the scalar product of the matrix with `other`.
+
 *   `elements()`
 
     Iterator returning the tuple `(row, col, element)`.
@@ -141,10 +149,6 @@ Matrix objects support the following methods:
 *   `equals(other, delta)`
 
     True if the matrices are the same size and their corresponding elements agree to within `delta`.
-
-*   `inverse()`
-
-    Returns the inverse matrix if it exists, otherwise raises MatrixError.
 
 *   `inv()`
 
@@ -206,11 +210,7 @@ Matrix objects support the following methods:
 
     Returns the reduced row echelon form of the matrix.
 
-*   `transpose()`
-
-    Returns the transpose of the matrix as a new object.
-
-*   `trp()`
+*   `trans()`
 
     Returns the transpose of the matrix as a new object.
 

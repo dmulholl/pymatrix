@@ -221,7 +221,7 @@ body {
 .main {
     max-width: 740px;
     margin: 0 auto;
-    padding: 40px 50px 50px;
+    padding: 45px 50px 60px;
     border: 1px solid #ccc;
     box-shadow: 0 0 10px #ddd;
 }
@@ -434,10 +434,13 @@ table .stx-right {
 */
 
 /*
-    Does the same thing as <meta name="viewport" content="width=device-width">,
+    Does the same thing as:
+
+        <meta name="viewport" content="width=device-width">
+
     but in the future W3C standard way. -ms- prefix is required for IE10+ to
-    render responsive styling in Windows 8 "snapped" views; IE10+ does not honor
-    the meta tag.
+    render responsive styling in Windows 8 "snapped" views; IE10+ does not
+    honor the meta tag.
 */
 
 @-ms-viewport {

@@ -2,7 +2,7 @@
 Pymatrix
 ========
 
-A pure-Python matrix module with support for basic linear algebra operations.
+A pure-Python matrix module with support for a range of linear algebra operations.
 
 Sample syntax:
 
@@ -32,7 +32,7 @@ Install directly from the Python package index using `pip`:
 
     $ pip install pymatrix
 
-Pymatrix has no dependencies and has been tested with Python 2.7 and 3.4.
+Pymatrix requires Python >= 3.4. The package has no dependencies.
 
 
 Links

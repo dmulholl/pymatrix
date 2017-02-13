@@ -2,20 +2,16 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>
-        
-Guide
-
-    </title>
+    <title>Guide</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="css/theme.css">
     <link rel="stylesheet" href="css/pygments.css">
-    <!--[if lt IE 9]><script src="js/html5shiv.js"></script><![endif]-->
-    <script src="js/jquery-1.12.3.min.js"></script>
-    <script src="js/theme.js"></script>
+    <!--[if lt IE 9]>
+        <script src="js/html5shiv.js"></script>
+    <![endif]-->
 </head>
 
-<body class="type-pages single">
+<body class="node-guide node">
 
     <header id="head" class="head">
         <input id="menu-check" type="checkbox"/>
@@ -35,6 +31,7 @@ Guide
 
     </header>
 
+    
     <article id="main" class="main">
         
 
@@ -45,7 +42,7 @@ Guide
 Pymatrix exports a lightweight, easy-to-use matrix object that supports all of Python's native numeric types, including integers, floats, and fractions (rational numbers).
 </p>
 <p>
-Be warned that this library has been built for comfort, not for speed. Users with heavy-duty computational needs should turn to a heavily-optimised alternative like <a href="http://www.numpy.org">NumPy</a> instead.
+Be warned that this library has been built for comfort, not for speed. Users with heavy-duty computational needs should turn to an optimised alternative like <a href="http://www.numpy.org">NumPy</a> instead.
 </p>
 <h2 id="instantiation">
 Instantiation
@@ -57,16 +54,16 @@ You can instantiate a matrix object directly, optionally specifying a fill value
 <span class="n">m</span> <span class="o">=</span> <span class="n">Matrix</span><span class="p">(</span><span class="n">rows</span><span class="p">,</span> <span class="n">cols</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 </pre>
 <p>
-You can instantiate a matrix object from a list of lists using the <code>FromList()</code> static method:
+You can instantiate a matrix object from a list of lists using the <code>from_list()</code> static method:
 </p>
 <pre class="lang-python pygments" data-lang="python">
-<span class="n">m</span> <span class="o">=</span> <span class="n">Matrix</span><span class="o">.</span><span class="n">FromList</span><span class="p">([</span>
+<span class="n">m</span> <span class="o">=</span> <span class="n">Matrix</span><span class="o">.</span><span class="n">from_list</span><span class="p">([</span>
     <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
     <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]</span>
 <span class="p">])</span>
 </pre>
 <p>
-You can instantiate a matrix object from a string using the <code>FromString()</code> static method:
+You can instantiate a matrix object from a string using the <code>from_string()</code> static method:
 </p>
 <pre class="lang-python pygments" data-lang="python">
 <span class="n">s</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
@@ -74,16 +71,16 @@ You can instantiate a matrix object from a string using the <code>FromString()</
 <span class="s2">4/7 5 6</span>
 <span class="s2">&quot;&quot;&quot;</span>
 
-<span class="n">m</span> <span class="o">=</span> <span class="n">Matrix</span><span class="o">.</span><span class="n">FromString</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">rowsep</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">colsep</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">parser</span><span class="o">=</span><span class="n">fractions</span><span class="o">.</span><span class="n">Fraction</span><span class="p">)</span>
+<span class="n">m</span> <span class="o">=</span> <span class="n">Matrix</span><span class="o">.</span><span class="n">from_string</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">rowsep</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">colsep</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">parser</span><span class="o">=</span><span class="n">fractions</span><span class="o">.</span><span class="n">Fraction</span><span class="p">)</span>
 </pre>
 <p>
 Row separators default to newlines, column separators default to spaces. Leading and trailing whitespace is stripped from the string. Elements are parsed as fractions (rational numbers) by default.
 </p>
 <p>
-You can instantiate an n x n identity matrix using the <code>Identity()</code> static method:
+You can instantiate an n x n identity matrix using the <code>identity()</code> static method:
 </p>
 <pre class="lang-python pygments" data-lang="python">
-<span class="n">m</span> <span class="o">=</span> <span class="n">Matrix</span><span class="o">.</span><span class="n">Identity</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+<span class="n">m</span> <span class="o">=</span> <span class="n">Matrix</span><span class="o">.</span><span class="n">identity</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
 </pre>
 <p>
 The shortcut <code>matrix()</code> function supports the syntax of all three static methods:
@@ -189,6 +186,14 @@ Returns a copy of the matrix.
 </li>
 <li>
 <p>
+<code>cross(other)</code>
+</p>
+<p>
+Returns the vector product of the matrix with <code>other</code> as a new matrix.
+</p>
+</li>
+<li>
+<p>
 <code>del_col(col)</code>
 </p>
 <p>
@@ -221,6 +226,14 @@ Vectors only. Returns the unit vector in the direction of the vector.
 </li>
 <li>
 <p>
+<code>dot(other)</code>
+</p>
+<p>
+Returns the scalar product of the matrix with <code>other</code>.
+</p>
+</li>
+<li>
+<p>
 <code>elements()</code>
 </p>
 <p>
@@ -233,14 +246,6 @@ Iterator returning the tuple <code>(row, col, element)</code>.
 </p>
 <p>
 True if the matrices are the same size and their corresponding elements agree to within <code>delta</code>.
-</p>
-</li>
-<li>
-<p>
-<code>inverse()</code>
-</p>
-<p>
-Returns the inverse matrix if it exists, otherwise raises MatrixError.
 </p>
 </li>
 <li>
@@ -365,15 +370,7 @@ Returns the reduced row echelon form of the matrix.
 </li>
 <li>
 <p>
-<code>transpose()</code>
-</p>
-<p>
-Returns the transpose of the matrix as a new object.
-</p>
-</li>
-<li>
-<p>
-<code>trp()</code>
+<code>trans()</code>
 </p>
 <p>
 Returns the transpose of the matrix as a new object.
@@ -421,6 +418,7 @@ An invalid operation on a matrix object will raise a <code>MatrixError</code> ex
 
     </article>
 
+
     <footer id="foot" class="foot">
         <ul>
 <li>
@@ -435,3 +433,8 @@ An invalid operation on a matrix object will raise a <code>MatrixError</code> ex
 
 </body>
 </html>
+
+
+
+
+

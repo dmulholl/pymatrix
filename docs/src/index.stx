@@ -35,6 +35,29 @@ Install directly from the Python package index using `pip`:
 Pymatrix requires Python >= 3.4. The package has no dependencies.
 
 
+Command Line
+------------
+
+Pymatrix doubles as a command line matrix analysis utility. Installing via `pip` automatically makes `pymatrix` available on the command line:
+
+    Usage: pymatrix [OPTIONS] [FLAGS]
+
+      Matrix analysis utility. Enter a matrix interactively at the terminal or
+      pipe to stdin from a file, e.g.
+
+        $ pymatrix < matrix.txt
+
+      Elements are parsed as fractions (rational numbers) by default. An
+      alternative parser can be specified using the --parser flag.
+
+    Options:
+      -p, --parser <str>    One of 'int', 'float', 'complex', 'fraction'.
+
+    Flags:
+          --help            Print the application's help text and exit.
+          --version         Print the application's version number and exit.
+
+
 Links
 -----
 

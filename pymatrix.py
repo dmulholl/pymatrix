@@ -87,8 +87,8 @@ class Matrix:
 
     def __init__(self, rows, cols, fill=0):
         """ Initialize a `rows` x `cols` matrix filled with `fill`. """
-        self.nrows = rows
-        self.ncols = cols
+        self.numrows = rows
+        self.numcols = cols
         self.grid = [[fill for i in range(cols)] for j in range(rows)]
 
     def __str__(self):
@@ -102,7 +102,7 @@ class Matrix:
     def __repr__(self):
         """ Returns a string representation of the object. """
         return '<%s %sx%s 0x%x>' % (
-            self.__class__.__name__, self.nrows, self.ncols, id(self)
+            self.__class__.__name__, self.numrows, self.numcols, id(self)
         )
 
     def __getitem__(self, key):
@@ -136,9 +136,9 @@ class Matrix:
         """ Addition: `self + other`. """
         if not isinstance(other, Matrix):
             raise MatrixError('cannot add %s to a matrix' % type(other))
-        if self.nrows != other.nrows or self.ncols != other.ncols:
+        if self.numrows != other.numrows or self.numcols != other.numcols:
             raise MatrixError('cannot add matrices of different sizes')
-        m = Matrix(self.nrows, self.ncols)
+        m = Matrix(self.numrows, self.numcols)
         for row, col, element in self.elements():
             m[row][col] = element + other[row][col]
         return m
@@ -147,9 +147,9 @@ class Matrix:
         """ Subtraction: `self - other`. """
         if not isinstance(other, Matrix):
             raise MatrixError('cannot subtract %s from a matrix' % type(other))
-        if self.nrows != other.nrows or self.ncols != other.ncols:
+        if self.numrows != other.numrows or self.numcols != other.numcols:
             raise MatrixError('cannot subtract matrices of different sizes')
-        m = Matrix(self.nrows, self.ncols)
+        m = Matrix(self.numrows, self.numcols)
         for row, col, element in self.elements():
             m[row][col] = element - other[row][col]
         return m
@@ -157,9 +157,9 @@ class Matrix:
     def __mul__(self, other):
         """ Multiplication: `self * other`. """
         if isinstance(other, Matrix):
-            if self.ncols != other.nrows:
+            if self.numcols != other.numrows:
                 raise MatrixError('incompatible sizes for multiplication')
-            m = Matrix(self.nrows, other.ncols)
+            m = Matrix(self.numrows, other.numcols)
             for row, col, element in m.elements():
                 for re, ce in zip(self.row(row), other.col(col)):
                     m[row][col] += re * ce
@@ -186,41 +186,41 @@ class Matrix:
 
     def __iter__(self):
         """ Iteration: `for i in self`. """
-        for row in range(self.nrows):
-            for col in range(self.ncols):
+        for row in range(self.numrows):
+            for col in range(self.numcols):
                 yield self[row][col]
 
     def row(self, n):
         """ Returns an iterator over the specified row. """
-        for col in range(self.ncols):
+        for col in range(self.numcols):
             yield self[n][col]
 
     def col(self, n):
         """ Returns an iterator over the specified column. """
-        for row in range(self.nrows):
+        for row in range(self.numrows):
             yield self[row][n]
 
     def rows(self):
         """ Returns a row iterator for each row in the matrix. """
-        for row in range(self.nrows):
+        for row in range(self.numrows):
             yield self.row(row)
 
     def cols(self):
         """ Returns a column iterator for each column in the matrix. """
-        for col in range(self.ncols):
+        for col in range(self.numcols):
             yield self.col(col)
 
     def rowvec(self, n):
         """ Returns the specified row as a new row vector. """
-        v = Matrix(1, self.ncols)
-        for col in range(self.ncols):
+        v = Matrix(1, self.numcols)
+        for col in range(self.numcols):
             v[0][col] = self[n][col]
         return v
 
     def colvec(self, n):
         """ Returns the specified column as a new column vector. """
-        v = Matrix(self.nrows, 1)
-        for row in range(self.nrows):
+        v = Matrix(self.numrows, 1)
+        for row in range(self.numrows):
             v[row][0] = self[row][n]
         return v
 
@@ -229,7 +229,7 @@ class Matrix:
         and their corresponding elements agree to within `delta`. If `delta`
         is omitted, we perform a simple equality check (`==`) on corresponding
         elements instead. """
-        if self.nrows != other.nrows or self.ncols != other.ncols:
+        if self.numrows != other.numrows or self.numcols != other.numcols:
             return False
         if delta:
             for row, col, element in self.elements():
@@ -243,8 +243,8 @@ class Matrix:
 
     def elements(self):
         """ Iterator returning the tuple (row, col, element). """
-        for row in range(self.nrows):
-            for col in range(self.ncols):
+        for row in range(self.numrows):
+            for col in range(self.numcols):
                 yield row, col, self[row][col]
 
     def copy(self):
@@ -253,7 +253,7 @@ class Matrix:
 
     def trans(self):
         """ Returns the transpose of the matrix as a new object. """
-        m = Matrix(self.ncols, self.nrows)
+        m = Matrix(self.numcols, self.numrows)
         for row, col, element in self.elements():
             m[col][row] = element
         return m
@@ -265,7 +265,7 @@ class Matrix:
         ref, _, multiplier = get_row_echelon_form(self)
         ref_det = functools.reduce(
             operator.mul,
-            (ref[i][i] for i in range(ref.nrows))
+            (ref[i][i] for i in range(ref.numrows))
         )
         return ref_det / multiplier
 
@@ -279,7 +279,7 @@ class Matrix:
 
     def cofactors(self):
         """ Returns the matrix of cofactors as a new object. """
-        m = Matrix(self.nrows, self.ncols)
+        m = Matrix(self.numrows, self.numcols)
         for row, col, element in self.elements():
             m[row][col] = self.cofactor(row, col)
         return m
@@ -292,7 +292,7 @@ class Matrix:
         """ Returns the inverse matrix if it exists or raises MatrixError. """
         if not self.is_square():
             raise MatrixError('non-square matrix cannot have an inverse')
-        identity = Matrix.identity(self.nrows)
+        identity = Matrix.identity(self.numrows)
         rref, inverse = get_reduced_row_echelon_form(self, identity)
         if rref != identity:
             raise MatrixError('matrix is non-invertible')
@@ -304,7 +304,7 @@ class Matrix:
 
     def del_row(self, row_to_delete):
         """ Returns a new matrix with the specified row deleted. """
-        m = Matrix(self.nrows - 1, self.ncols)
+        m = Matrix(self.numrows - 1, self.numcols)
         for row, col, element in self.elements():
             if row < row_to_delete:
                 m[row][col] = element
@@ -314,7 +314,7 @@ class Matrix:
 
     def del_col(self, col_to_delete):
         """ Returns a new matrix with the specified column deleted. """
-        m = Matrix(self.nrows, self.ncols - 1)
+        m = Matrix(self.numrows, self.numcols - 1)
         for row, col, element in self.elements():
             if col < col_to_delete:
                 m[row][col] = element
@@ -324,24 +324,24 @@ class Matrix:
 
     def map(self, func):
         """ Forms a new matrix by mapping `func` to each element. """
-        m = Matrix(self.nrows, self.ncols)
+        m = Matrix(self.numrows, self.numcols)
         for row, col, element in self.elements():
             m[row][col] = func(element)
         return m
 
     def rowop_multiply(self, row, m):
         """ In-place row operation. Multiplies the specified row by `m`. """
-        for col in range(self.ncols):
+        for col in range(self.numcols):
             self[row][col] = self[row][col] * m
 
     def rowop_swap(self, r1, r2):
         """ In-place row operation. Interchanges the two specified rows. """
-        for col in range(self.ncols):
+        for col in range(self.numcols):
             self[r1][col], self[r2][col] = self[r2][col], self[r1][col]
 
     def rowop_add(self, r1, m, r2):
         """ In-place row operation. Adds `m` times row `r2` to row `r1`. """
-        for col in range(self.ncols):
+        for col in range(self.numcols):
             self[r1][col] = self[r1][col] + m * self[r2][col]
 
     def ref(self):
@@ -362,7 +362,7 @@ class Matrix:
 
     def is_square(self):
         """ True if the matrix is square. """
-        return self.nrows == self.ncols
+        return self.numrows == self.numcols
 
     def is_invertible(self):
         """ True if the matrix is invertible. """
@@ -433,13 +433,13 @@ def get_row_echelon_form(matrix, mirror=None):
     det_multiplier = 1
 
     # Start with the top row and work downwards.
-    for top_row in range(matrix.nrows):
+    for top_row in range(matrix.numrows):
 
         # Find the leftmost column that is not all zeros.
         # Note: this step is sensitive to small rounding errors around zero.
         found = False
-        for col in range(matrix.ncols):
-            for row in range(top_row, matrix.nrows):
+        for col in range(matrix.numcols):
+            for row in range(top_row, matrix.numrows):
                 if matrix[row][col] != 0:
                     found = True
                     break
@@ -465,7 +465,7 @@ def get_row_echelon_form(matrix, mirror=None):
                 mirror.rowop_multiply(top_row, multiplier)
 
         # Make all entries below the leading '1' zero.
-        for row in range(top_row + 1, matrix.nrows):
+        for row in range(top_row + 1, matrix.numrows):
             if matrix[row][col] != 0:
                 multiplier = -matrix[row][col]
                 matrix.rowop_add(row, multiplier, top_row)
@@ -487,8 +487,8 @@ def get_reduced_row_echelon_form(matrix, mirror=None):
     # The backward phase of the algorithm. For each row, starting at the
     # bottom and working up, find the column containing the leading 1 and
     # make all the entries above it zero.
-    for last_row in range(matrix.nrows - 1, 0, -1):
-        for col in range(matrix.ncols):
+    for last_row in range(matrix.numrows - 1, 0, -1):
+        for col in range(matrix.numcols):
             if matrix[last_row][col] == 1:
                 for row in range(last_row):
                     if matrix[row][col] != 0:
@@ -544,7 +544,7 @@ def terminal_input():
 
 # Analyse a matrix and print a report.
 def analyse(matrix):
-    rows, cols, rank = matrix.nrows, matrix.ncols, matrix.rank()
+    rows, cols, rank = matrix.numrows, matrix.numcols, matrix.rank()
     title = '  Rows: %s  |  Cols: %s  |  Rank: %s' % (rows, cols, rank)
 
     if matrix.is_square():

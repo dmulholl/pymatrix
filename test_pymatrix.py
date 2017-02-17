@@ -123,8 +123,8 @@ class MatrixInstantiationTests(unittest.TestCase):
         for rownum, row in enumerate(vals):
             for colnum, element in enumerate(row):
                 self.assertEqual(element, m[rownum][colnum])
-        self.assertEqual(m.nrows, 3)
-        self.assertEqual(m.ncols, 3)
+        self.assertEqual(m.numrows, 3)
+        self.assertEqual(m.numcols, 3)
 
     def test_instantiation_with_fill(self):
         vals = [[1, 1, 1], [1, 1, 1], [1, 1, 1]]
@@ -132,8 +132,8 @@ class MatrixInstantiationTests(unittest.TestCase):
         for rownum, row in enumerate(vals):
             for colnum, element in enumerate(row):
                 self.assertEqual(element, m[rownum][colnum])
-        self.assertEqual(m.nrows, 3)
-        self.assertEqual(m.ncols, 3)
+        self.assertEqual(m.numrows, 3)
+        self.assertEqual(m.numcols, 3)
 
     def test_instantiation_of_identity(self):
         vals = [[1, 0, 0], [0, 1, 0], [0, 0, 1]]
@@ -141,8 +141,8 @@ class MatrixInstantiationTests(unittest.TestCase):
         for rownum, row in enumerate(vals):
             for colnum, element in enumerate(row):
                 self.assertEqual(element, m[rownum][colnum])
-        self.assertEqual(m.nrows, 3)
-        self.assertEqual(m.ncols, 3)
+        self.assertEqual(m.numrows, 3)
+        self.assertEqual(m.numcols, 3)
 
     def test_instantiation_from_list(self):
         vals = [[1, 2, 4], [1, 3, 6], [-1, 0, 1]]
@@ -150,16 +150,16 @@ class MatrixInstantiationTests(unittest.TestCase):
         for rownum, row in enumerate(vals):
             for colnum, element in enumerate(row):
                 self.assertEqual(element, m[rownum][colnum])
-        self.assertEqual(m.nrows, 3)
-        self.assertEqual(m.ncols, 3)
+        self.assertEqual(m.numrows, 3)
+        self.assertEqual(m.numcols, 3)
 
     def test_instantiation_from_default_format_string(self):
         vals = [[1, 2, 4], [1, 3, 6], [-1, 0, 1]]
         for rownum, row in enumerate(vals):
             for colnum, element in enumerate(row):
                 self.assertEqual(element, a[rownum][colnum])
-        self.assertEqual(a.nrows, 3)
-        self.assertEqual(a.ncols, 3)
+        self.assertEqual(a.numrows, 3)
+        self.assertEqual(a.numcols, 3)
 
     def test_instantiation_from_alt_format_string(self):
         vals = [[1, 2, 4], [1, 3, 6], [-1, 0, 1]]
@@ -168,8 +168,8 @@ class MatrixInstantiationTests(unittest.TestCase):
         for rownum, row in enumerate(vals):
             for colnum, element in enumerate(row):
                 self.assertEqual(element, m[rownum][colnum])
-        self.assertEqual(m.nrows, 3)
-        self.assertEqual(m.ncols, 3)
+        self.assertEqual(m.numrows, 3)
+        self.assertEqual(m.numcols, 3)
 
 
 class MatrixEqualityTests(unittest.TestCase):

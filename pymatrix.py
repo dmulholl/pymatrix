@@ -510,8 +510,13 @@ def get_reduced_row_echelon_form(matrix, mirror=None):
 helptext = """
 Usage: %s [OPTIONS] [FLAGS]
 
-  Matrix analysis utility. A matrix can be supplied interactively via the
-  terminal or piped in from a file via stdin.
+  Matrix analysis utility. Enter a matrix interactively at the terminal or
+  pipe to stdin from a file, e.g.
+
+    $ pymatrix < matrix.txt
+
+  Elements are parsed as fractions (rational numbers) by default. An
+  alternative parser can be specified using the --parser flag.
 
 Options:
   -p, --parser <str>    One of 'int', 'float', 'complex', 'fraction'.
@@ -531,7 +536,7 @@ class HelpAction(argparse.Action):
 
 # Read in a matrix interactively from the terminal.
 def terminal_input():
-    print("# Enter Matrix")
+    print("# Enter a matrix, one row per line. Enter a blank line to end.")
     lines = []
     while True:
         line = input("> ").strip()

@@ -30,6 +30,7 @@ import sys
 import os
 import argparse
 import textwrap
+import shutil
 
 
 # Library version.
@@ -551,12 +552,13 @@ def terminal_input():
 def analyse(matrix):
     rows, cols, rank = matrix.numrows, matrix.numcols, matrix.rank()
     title = '  Rows: %s  |  Cols: %s  |  Rank: %s' % (rows, cols, rank)
+    termcols, _ = shutil.get_terminal_size()
 
     if matrix.is_square():
         det = matrix.det()
         title += '  |  Det: %s' % det
 
-    print('-' * 80 + title + '\n' + '-' * 80)
+    print('-' * termcols + title + '\n' + '-' * termcols)
 
     print("\n# Input\n")
     print(textwrap.indent(str(matrix), '  '))
@@ -574,6 +576,8 @@ def analyse(matrix):
 
         print("\n# Cofactors\n")
         print(textwrap.indent(str(matrix.cofactors()), '  '))
+
+    print('\n' + '-' * termcols)
 
 
 # Entry point for the command line interface.

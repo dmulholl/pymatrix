@@ -2,7 +2,11 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Guide</title>
+    <title>
+        
+Guide
+
+    </title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="css/theme.css">
     <link rel="stylesheet" href="css/pygments.css">
@@ -31,7 +35,6 @@
 
     </header>
 
-    
     <article id="main" class="main">
         
 
@@ -66,12 +69,17 @@ You can instantiate a matrix object from a list of lists using the <code>from_li
 You can instantiate a matrix object from a string using the <code>from_string()</code> static method:
 </p>
 <pre class="lang-python pygments" data-lang="python">
-<span class="n">s</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
-<span class="s2">1 2 3/7</span>
-<span class="s2">4/7 5 6</span>
-<span class="s2">&quot;&quot;&quot;</span>
+<span class="n">string</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39;</span>
+<span class="s1">1 2 3/7</span>
+<span class="s1">4/7 5 6</span>
+<span class="s1">&#39;&#39;&#39;</span>
 
-<span class="n">m</span> <span class="o">=</span> <span class="n">Matrix</span><span class="o">.</span><span class="n">from_string</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">rowsep</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">colsep</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">parser</span><span class="o">=</span><span class="n">fractions</span><span class="o">.</span><span class="n">Fraction</span><span class="p">)</span>
+<span class="n">m</span> <span class="o">=</span> <span class="n">Matrix</span><span class="o">.</span><span class="n">from_string</span><span class="p">(</span>
+    <span class="n">string</span><span class="p">,</span>
+    <span class="n">rowsep</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+    <span class="n">colsep</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+    <span class="n">parser</span><span class="o">=</span><span class="n">fractions</span><span class="o">.</span><span class="n">Fraction</span>
+<span class="p">)</span>
 </pre>
 <p>
 Row separators default to newlines, column separators default to spaces. Leading and trailing whitespace is stripped from the string. Elements are parsed as fractions (rational numbers) by default.
@@ -418,7 +426,6 @@ An invalid operation on a matrix object will raise a <code>MatrixError</code> ex
 
     </article>
 
-
     <footer id="foot" class="foot">
         <ul>
 <li>
@@ -433,8 +440,3 @@ An invalid operation on a matrix object will raise a <code>MatrixError</code> ex
 
 </body>
 </html>
-
-
-
-
-

@@ -29,12 +29,17 @@ You can instantiate a matrix object from a string using the `from_string()` stat
 
 ::: python
 
-    s = """
+    string = '''
     1 2 3/7
     4/7 5 6
-    """
+    '''
 
-    m = Matrix.from_string(s, rowsep=None, colsep=None, parser=fractions.Fraction)
+    m = Matrix.from_string(
+        string,
+        rowsep=None,
+        colsep=None,
+        parser=fractions.Fraction
+    )
 
 Row separators default to newlines, column separators default to spaces. Leading and trailing whitespace is stripped from the string. Elements are parsed as fractions (rational numbers) by default.
 

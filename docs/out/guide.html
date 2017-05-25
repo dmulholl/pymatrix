@@ -135,288 +135,288 @@ Matrix Methods
 <p>
 Matrix objects support the following methods:
 </p>
-<ul>
-<li>
-<p>
-<code>adjoint()</code>
-</p>
+<dl>
+<dt>
+<code>.adjoint()</code>
+</dt>
+<dd>
 <p>
 Returns the adjoint matrix as a new object.
 </p>
-</li>
-<li>
-<p>
-<code>cofactor(row, col)</code>
-</p>
+</dd>
+<dt>
+<code>.cofactor(row, col)</code>
+</dt>
+<dd>
 <p>
 Returns the specified cofactor.
 </p>
-</li>
-<li>
-<p>
-<code>cofactors()</code>
-</p>
+</dd>
+<dt>
+<code>.cofactors()</code>
+</dt>
+<dd>
 <p>
 Returns the matrix of cofactors as a new object.
 </p>
-</li>
-<li>
-<p>
-<code>col(n)</code>
-</p>
+</dd>
+<dt>
+<code>.col(n)</code>
+</dt>
+<dd>
 <p>
 Returns an iterator over the specified column.
 </p>
-</li>
-<li>
-<p>
-<code>cols()</code>
-</p>
+</dd>
+<dt>
+<code>.cols()</code>
+</dt>
+<dd>
 <p>
 Returns a column iterator for each column in the matrix.
 </p>
-</li>
-<li>
-<p>
-<code>colvec(n)</code>
-</p>
+</dd>
+<dt>
+<code>.colvec(n)</code>
+</dt>
+<dd>
 <p>
 Returns the specified column as a new column vector.
 </p>
-</li>
-<li>
-<p>
-<code>copy()</code>
-</p>
+</dd>
+<dt>
+<code>.copy()</code>
+</dt>
+<dd>
 <p>
 Returns a copy of the matrix.
 </p>
-</li>
-<li>
-<p>
-<code>cross(other)</code>
-</p>
+</dd>
+<dt>
+<code>.cross(other)</code>
+</dt>
+<dd>
 <p>
 Returns the vector product of the matrix with <code>other</code> as a new matrix.
 </p>
-</li>
-<li>
-<p>
-<code>del_col(col)</code>
-</p>
+</dd>
+<dt>
+<code>.del_col(col)</code>
+</dt>
+<dd>
 <p>
 Returns a new matrix with the specified column deleted.
 </p>
-</li>
-<li>
-<p>
-<code>del_row(row)</code>
-</p>
+</dd>
+<dt>
+<code>.del_row(row)</code>
+</dt>
+<dd>
 <p>
 Returns a new matrix with the specified row deleted.
 </p>
-</li>
-<li>
-<p>
-<code>det()</code>
-</p>
+</dd>
+<dt>
+<code>.det()</code>
+</dt>
+<dd>
 <p>
 Returns the determinant of the matrix.
 </p>
-</li>
-<li>
-<p>
-<code>dir()</code>
-</p>
+</dd>
+<dt>
+<code>.dir()</code>
+</dt>
+<dd>
 <p>
 Vectors only. Returns the unit vector in the direction of the vector.
 </p>
-</li>
-<li>
-<p>
-<code>dot(other)</code>
-</p>
+</dd>
+<dt>
+<code>.dot(other)</code>
+</dt>
+<dd>
 <p>
 Returns the scalar product of the matrix with <code>other</code>.
 </p>
-</li>
-<li>
-<p>
-<code>elements()</code>
-</p>
+</dd>
+<dt>
+<code>.elements()</code>
+</dt>
+<dd>
 <p>
 Iterator returning the tuple <code>(row, col, element)</code>.
 </p>
-</li>
-<li>
-<p>
-<code>equals(other, delta)</code>
-</p>
+</dd>
+<dt>
+<code>.equals(other, delta)</code>
+</dt>
+<dd>
 <p>
 True if the matrices are the same size and their corresponding elements agree to within <code>delta</code>.
 </p>
-</li>
-<li>
-<p>
-<code>inv()</code>
-</p>
+</dd>
+<dt>
+<code>.inv()</code>
+</dt>
+<dd>
 <p>
 Returns the inverse matrix if it exists, otherwise raises MatrixError.
 </p>
-</li>
-<li>
-<p>
-<code>is_invertible()</code>
-</p>
+</dd>
+<dt>
+<code>.is_invertible()</code>
+</dt>
+<dd>
 <p>
 True if the matrix is invertible.
 </p>
-</li>
-<li>
-<p>
-<code>is_square()</code>
-</p>
+</dd>
+<dt>
+<code>.is_square()</code>
+</dt>
+<dd>
 <p>
 True if the matrix is square.
 </p>
-</li>
-<li>
-<p>
-<code>len()</code>
-</p>
+</dd>
+<dt>
+<code>.len()</code>
+</dt>
+<dd>
 <p>
 Vectors only. Returns the length of the vector.
 </p>
-</li>
-<li>
-<p>
-<code>map(func)</code>
-</p>
+</dd>
+<dt>
+<code>.map(func)</code>
+</dt>
+<dd>
 <p>
 Returns a new matrix formed by mapping <code>func</code> to each element.
 </p>
-</li>
-<li>
-<p>
-<code>minor(row, col)</code>
-</p>
+</dd>
+<dt>
+<code>.minor(row, col)</code>
+</dt>
+<dd>
 <p>
 Returns the specified minor.
 </p>
-</li>
-<li>
-<p>
-<code>rank()</code>
-</p>
+</dd>
+<dt>
+<code>.rank()</code>
+</dt>
+<dd>
 <p>
 Returns the rank of the matrix.
 </p>
-</li>
-<li>
-<p>
-<code>ref()</code>
-</p>
+</dd>
+<dt>
+<code>.ref()</code>
+</dt>
+<dd>
 <p>
 Returns the row echelon form of the matrix.
 </p>
-</li>
-<li>
-<p>
-<code>row(n)</code>
-</p>
+</dd>
+<dt>
+<code>.row(n)</code>
+</dt>
+<dd>
 <p>
 Returns an iterator over the specified row.
 </p>
-</li>
-<li>
-<p>
-<code>rowop_add(r1, m, r2)</code>
-</p>
+</dd>
+<dt>
+<code>.rowop_add(r1, m, r2)</code>
+</dt>
+<dd>
 <p>
 In-place row operation. Adds <code>m</code> times row <code>r2</code> to row <code>r1</code>.
 </p>
-</li>
-<li>
-<p>
-<code>rowop_multiply(row, m)</code>
-</p>
+</dd>
+<dt>
+<code>.rowop_multiply(row, m)</code>
+</dt>
+<dd>
 <p>
 In-place row operation. Multiplies the specified row by the scalar <code>m</code>.
 </p>
-</li>
-<li>
-<p>
-<code>rowop_swap(r1, r2)</code>
-</p>
+</dd>
+<dt>
+<code>.rowop_swap(r1, r2)</code>
+</dt>
+<dd>
 <p>
 In-place row operation. Interchanges the two specified rows.
 </p>
-</li>
-<li>
-<p>
-<code>rows()</code>
-</p>
+</dd>
+<dt>
+<code>.rows()</code>
+</dt>
+<dd>
 <p>
 Returns a row iterator for each row in the matrix.
 </p>
-</li>
-<li>
-<p>
-<code>rowvec(n)</code>
-</p>
+</dd>
+<dt>
+<code>.rowvec(n)</code>
+</dt>
+<dd>
 <p>
 Returns the specified row as a new row vector.
 </p>
-</li>
-<li>
-<p>
-<code>rref()</code>
-</p>
+</dd>
+<dt>
+<code>.rref()</code>
+</dt>
+<dd>
 <p>
 Returns the reduced row echelon form of the matrix.
 </p>
-</li>
-<li>
-<p>
-<code>trans()</code>
-</p>
+</dd>
+<dt>
+<code>.trans()</code>
+</dt>
+<dd>
 <p>
 Returns the transpose of the matrix as a new object.
 </p>
-</li>
-</ul>
+</dd>
+</dl>
 <h2 id="module-functions">
 Module Functions
 </h2>
 <p>
 The <code>pymatrix</code> module exports the following functions:
 </p>
-<ul>
-<li>
-<p>
+<dl>
+<dt>
 <code>dot(u, v)</code>
-</p>
+</dt>
+<dd>
 <p>
 Returns <code>u . v</code> - the inner/scalar/dot product of the vectors <code>u</code> and <code>v</code>.
 </p>
-</li>
-<li>
-<p>
+</dd>
+<dt>
 <code>cross(u, v)</code>
-</p>
+</dt>
+<dd>
 <p>
 Returns <code>u x v</code> - the vector/cross product of the 3D column vectors <code>u</code> and <code>v</code>.
 </p>
-</li>
-<li>
-<p>
+</dd>
+<dt>
 <code>matrix()</code>
-</p>
+</dt>
+<dd>
 <p>
 Shortcut function for instantiating <code>Matrix</code> objects; supports the syntax of the various static instantiation methods.
 </p>
-</li>
-</ul>
+</dd>
+</dl>
 <h2 id="exceptions">
 Exceptions
 </h2>
@@ -425,18 +425,6 @@ An invalid operation on a matrix object will raise a <code>MatrixError</code> ex
 </p>
 
     </article>
-
-    <footer id="foot" class="foot">
-        <ul>
-<li>
-<a href="index.html">Pymatrix</a>
-</li>
-<li>
-<a href="guide.html">Guide</a>
-</li>
-</ul>
-
-    </footer>
 
 </body>
 </html>

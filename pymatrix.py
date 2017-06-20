@@ -34,7 +34,7 @@ import shutil
 
 
 # Library version.
-__version__ = '2.0.1'
+__version__ = '2.1.0'
 
 
 # Exports.
@@ -537,10 +537,13 @@ class HelpAction(argparse.Action):
 
 # Read in a matrix interactively from the terminal.
 def terminal_input():
-    print("# Enter a matrix, one row per line. Enter a blank line to end.")
+    termcols, _ = shutil.get_terminal_size()
+    print('─' * termcols)
+    print("  Enter a matrix, one row per line. Enter a blank line to end.")
+    print('─' * termcols)
     lines = []
     while True:
-        line = input("> ").strip()
+        line = input("→ ").strip()
         if line:
             lines.append(line)
         else:
@@ -551,33 +554,33 @@ def terminal_input():
 # Analyse a matrix and print a report.
 def analyse(matrix):
     rows, cols, rank = matrix.numrows, matrix.numcols, matrix.rank()
-    title = '  Rows: %s  |  Cols: %s  |  Rank: %s' % (rows, cols, rank)
+    title = '  Rows: %s  ·  Cols: %s  ·  Rank: %s' % (rows, cols, rank)
     termcols, _ = shutil.get_terminal_size()
 
     if matrix.is_square():
         det = matrix.det()
-        title += '  |  Det: %s' % det
+        title += '  ·  Det: %s' % det
 
-    print('-' * termcols + title + '\n' + '-' * termcols)
+    print('─' * termcols + title + '\n' + '─' * termcols)
 
-    print("\n# Input\n")
+    print("\n• Input\n")
     print(textwrap.indent(str(matrix), '  '))
 
-    print("\n# Row Echelon Form\n")
+    print("\n• Row Echelon Form\n")
     print(textwrap.indent(str(matrix.ref()), '  '))
 
-    print("\n# Reduced Row Echelon Form\n")
+    print("\n• Reduced Row Echelon Form\n")
     print(textwrap.indent(str(matrix.rref()), '  '))
 
     if matrix.is_square():
         if det != 0:
-            print("\n# Inverse\n")
+            print("\n• Inverse\n")
             print(textwrap.indent(str(matrix.inv()), '  '))
 
-        print("\n# Cofactors\n")
+        print("\n• Cofactors\n")
         print(textwrap.indent(str(matrix.cofactors()), '  '))
 
-    print('\n' + '-' * termcols)
+    print('\n' + '─' * termcols)
 
 
 # Entry point for the command line interface.

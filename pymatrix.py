@@ -34,7 +34,7 @@ import shutil
 
 
 # Library version.
-__version__ = '2.1.0'
+__version__ = '2.1.1'
 
 
 # Exports.
@@ -540,10 +540,10 @@ def terminal_input():
     termcols, _ = shutil.get_terminal_size()
     print('─' * termcols)
     print("  Enter a matrix, one row per line. Enter a blank line to end.")
-    print('─' * termcols)
+    print('─' * termcols + '\n')
     lines = []
     while True:
-        line = input("→ ").strip()
+        line = input("  ").strip()
         if line:
             lines.append(line)
         else:

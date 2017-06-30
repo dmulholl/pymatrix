@@ -42,10 +42,10 @@ Guide
 Guide
 </h1>
 <p>
-Pymatrix exports a lightweight, easy-to-use matrix object that supports all of Python's native numeric types, including integers, floats, and fractions (rational numbers).
+Pymatrix exports a lightweight, general purpose matrix class, <code>Matrix</code>. A matrix element can be any arbitrary object that supports the required arithmethic and comparison operators. All of Python's native numeric types &mdash; integers, floats, complex numbers, and rational numbers &mdash; are supported.
 </p>
 <p>
-Be warned that this library has been built for comfort, not for speed. Users with heavy-duty computational needs should turn to an optimised alternative like <a href="http://www.numpy.org">NumPy</a> instead.
+Note that Pymatrix has been built for comfort, not for speed. If you have heavy-duty computational needs you should probably turn to an optimised alternative like <a href="http://www.numpy.org">NumPy</a> instead.
 </p>
 <h2 id="instantiation">
 Instantiation
@@ -173,7 +173,7 @@ Returns an iterator over the specified column.
 </dt>
 <dd>
 <p>
-Returns a column iterator for each column in the matrix.
+Iterator returning a column iterator for each column in the matrix.
 </p>
 </dd>
 <dt>
@@ -197,7 +197,7 @@ Returns a copy of the matrix.
 </dt>
 <dd>
 <p>
-Returns the vector product of the matrix with <code>other</code> as a new matrix.
+Returns the cross/vector product of the matrix with <code>other</code> as a new matrix. The cross product is only defined for pairs of 3-dimensional column vectors.
 </p>
 </dd>
 <dt>
@@ -237,7 +237,7 @@ Vectors only. Returns the unit vector in the direction of the vector.
 </dt>
 <dd>
 <p>
-Returns the scalar product of the matrix with <code>other</code>.
+Returns the dot/scalar product of the matrix with <code>other</code>. The dot product is only defined for pairs of vectors.
 </p>
 </dd>
 <dt>
@@ -245,15 +245,18 @@ Returns the scalar product of the matrix with <code>other</code>.
 </dt>
 <dd>
 <p>
-Iterator returning the tuple <code>(row, col, element)</code>.
+Iterator returning the tuple <code>(row, col, element)</code> for each element in the matrix.
 </p>
 </dd>
 <dt>
-<code>.equals(other, delta)</code>
+<code>.equals(other, delta=None)</code>
 </dt>
 <dd>
 <p>
-True if the matrices are the same size and their corresponding elements agree to within <code>delta</code>.
+If <code>delta</code> is <code>None</code>, two matrices are equal if they are the same size and their corresponding elements are equal, i.e. <code>e1 == e2</code>.
+</p>
+<p>
+If <code>delta</code> is not <code>None</code>, two matrices are equal if they are the same size and their corresponding elements agree to within <code>delta</code>, i.e. <code>abs(e1 - e2) &lt;= delta</code>.
 </p>
 </dd>
 <dt>
@@ -261,7 +264,7 @@ True if the matrices are the same size and their corresponding elements agree to
 </dt>
 <dd>
 <p>
-Returns the inverse matrix if it exists, otherwise raises MatrixError.
+Returns the inverse matrix if it exists, otherwise raises <code>MatrixError</code>.
 </p>
 </dd>
 <dt>
@@ -269,7 +272,7 @@ Returns the inverse matrix if it exists, otherwise raises MatrixError.
 </dt>
 <dd>
 <p>
-True if the matrix is invertible.
+True if the matrix is invertible. Note that determining whether a matrix is invertible is as computationally expensive as actually calculating the inverse.
 </p>
 </dd>
 <dt>
@@ -357,7 +360,7 @@ In-place row operation. Interchanges the two specified rows.
 </dt>
 <dd>
 <p>
-Returns a row iterator for each row in the matrix.
+Iterator returning a row iterator for each row in the matrix.
 </p>
 </dd>
 <dt>

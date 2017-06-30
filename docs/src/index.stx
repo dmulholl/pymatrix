@@ -2,7 +2,7 @@
 Pymatrix
 ========
 
-Pymatrix is a pure-Python matrix module with support for a range of linear algebra operations.
+Pymatrix is a lightweight matrix library in Python. It supports a range of basic linear algebra operations.
 
 ::: python
 

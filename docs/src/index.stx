@@ -1,5 +1,6 @@
 ---
 title: Home
+meta title: Pymatrix
 ---
 
 Pymatrix is a lightweight matrix library built in Python. It supports a range of basic linear algebra operations.
@@ -30,7 +31,7 @@ Install directly from the Python package index using `pip`:
 
     $ pip install pymatrix
 
-Pymatrix requires Python >= 3.4. The package has no dependencies.
+Pymatrix requires Python 3.4 or later. The package has no dependencies.
 
 
 ### Command Line

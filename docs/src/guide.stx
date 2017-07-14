@@ -1,10 +1,10 @@
-
-Guide
-=====
+---
+title: Guide
+---
 
 Pymatrix exports a lightweight, general purpose matrix class, `Matrix`. A matrix element can be any arbitrary object that supports the required arithmethic and comparison operators. All of Python's native numeric types --- integers, floats, complex numbers, and rational numbers --- are supported.
 
-Note that Pymatrix has been built for comfort, not for speed. If you have heavy-duty computational needs you should turn to an optimised alternative like [NumPy](http://www.numpy.org) instead.
+Note that Pymatrix has been built for comfort, not for speed. If you have heavy-duty computational needs you should turn to a C-based alternative like [NumPy](http://www.numpy.org) instead.
 
 
 

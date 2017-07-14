@@ -1,8 +1,8 @@
+---
+title: Home
+---
 
-Pymatrix
-========
-
-Pymatrix is a lightweight matrix library in Python. It supports a range of basic linear algebra operations.
+Pymatrix is a lightweight matrix library built in Python. It supports a range of basic linear algebra operations.
 
 ::: python
 
@@ -20,11 +20,11 @@ Pymatrix is a lightweight matrix library in Python. It supports a range of basic
     d = m.det()
     e = m.inv()
 
-See the [guide](@root/guide//) for a full list of available matrix methods.
+See the [guide](@root/guide//) for a list of available matrix methods.
 
 
-Installation
-------------
+### Installation
+
 
 Install directly from the Python package index using `pip`:
 
@@ -33,38 +33,38 @@ Install directly from the Python package index using `pip`:
 Pymatrix requires Python >= 3.4. The package has no dependencies.
 
 
-Command Line
-------------
+### Command Line
 
-Pymatrix doubles as a command line matrix analysis utility. Installing via `pip` automatically makes `pymatrix` available on the command line:
+
+Pymatrix doubles as a simple command line matrix analysis utility. Installing via `pip` automatically makes `pymatrix` available on the command line:
 
     Usage: pymatrix [OPTIONS] [FLAGS]
 
-      Matrix analysis utility. Enter a matrix interactively at the terminal or
-      pipe to stdin from a file, e.g.
+      Matrix analysis utility. Enter a matrix interactively at
+      the terminal or pipe to stdin from a file, e.g.
 
         $ pymatrix < matrix.txt
 
-      Elements are parsed as fractions (rational numbers) by default. An
-      alternative parser can be specified using the --parser flag.
+      Elements are parsed as fractions (rational numbers) by
+      default. An alternative parser can be specified using
+      the --parser flag.
 
     Options:
-      -p, --parser <str>    One of 'int', 'float', 'complex', 'fraction'.
+      -p, --parser <str>    One of 'int', 'float', 'complex',
+                            or 'fraction'.
 
     Flags:
-          --help            Print the application's help text and exit.
-          --version         Print the application's version number and exit.
+          --help            Print the application's help text.
+          --version         Print the application's version.
 
 
-Links
------
+### Links
 
 * [Github Homepage](https://github.com/dmulholland/pymatrix)
 * [Python Package Index](https://pypi.python.org/pypi/pymatrix/)
 * [Online Documentation](http://mulholland.xyz/docs/pymatrix/)
 
 
-License
--------
+### License
 
 This work has been placed in the public domain.

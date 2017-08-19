@@ -34,7 +34,7 @@ import shutil
 
 
 # Library version.
-__version__ = '2.1.1'
+__version__ = '3.0.0.dev'
 
 
 # Exports.
@@ -60,7 +60,7 @@ def matrix(*pargs, **kwargs):
 
 def dot(u, v):
     """ Returns u . v - the scalar product of vectors u and v. """
-    return sum(map(operator.mul, u, v))
+    return sum(u[row][col] * v[row][col] for row, col, _ in u)
 
 
 def cross(u, v):
@@ -94,7 +94,7 @@ class Matrix:
 
     def __str__(self):
         """ Returns a string representation of the matrix. """
-        maxlen = max(len(str(e)) for e in self)
+        maxlen = max(len(str(e)) for _, _, e in self)
         string = '\n'.join(
             ' '.join(str(e).rjust(maxlen) for e in row) for row in self.grid
         )
@@ -112,7 +112,7 @@ class Matrix:
 
     def __contains__(self, item):
         """ Containment: `item in self`. """
-        for element in self:
+        for _, _, element in self:
             if element == item:
                 return True
         return False
@@ -140,7 +140,7 @@ class Matrix:
         if self.numrows != other.numrows or self.numcols != other.numcols:
             raise MatrixError('cannot add matrices of different sizes')
         m = Matrix(self.numrows, self.numcols)
-        for row, col, element in self.elements():
+        for row, col, element in self:
             m[row][col] = element + other[row][col]
         return m
 
@@ -151,7 +151,7 @@ class Matrix:
         if self.numrows != other.numrows or self.numcols != other.numcols:
             raise MatrixError('cannot subtract matrices of different sizes')
         m = Matrix(self.numrows, self.numcols)
-        for row, col, element in self.elements():
+        for row, col, element in self:
             m[row][col] = element - other[row][col]
         return m
 
@@ -161,7 +161,7 @@ class Matrix:
             if self.numcols != other.numrows:
                 raise MatrixError('incompatible sizes for multiplication')
             m = Matrix(self.numrows, other.numcols)
-            for row, col, element in m.elements():
+            for row, col, element in m:
                 for re, ce in zip(self.row(row), other.col(col)):
                     m[row][col] += re * ce
             return m
@@ -186,10 +186,10 @@ class Matrix:
         return m
 
     def __iter__(self):
-        """ Iteration: `for i in self`. """
+        """ Iteration: `for row, col, element in self`. """
         for row in range(self.numrows):
             for col in range(self.numcols):
-                yield self[row][col]
+                yield row, col, self[row][col]
 
     def row(self, n):
         """ Returns an iterator over the specified row. """
@@ -233,20 +233,14 @@ class Matrix:
         if self.numrows != other.numrows or self.numcols != other.numcols:
             return False
         if delta:
-            for row, col, element in self.elements():
+            for row, col, element in self:
                 if abs(element - other[row][col]) > delta:
                     return False
         else:
-            for row, col, element in self.elements():
+            for row, col, element in self:
                 if element != other[row][col]:
                     return False
         return True
-
-    def elements(self):
-        """ Iterator returning the tuple (row, col, element). """
-        for row in range(self.numrows):
-            for col in range(self.numcols):
-                yield row, col, self[row][col]
 
     def copy(self):
         """ Returns a copy of the matrix. """
@@ -255,7 +249,7 @@ class Matrix:
     def trans(self):
         """ Returns the transpose of the matrix as a new object. """
         m = Matrix(self.numcols, self.numrows)
-        for row, col, element in self.elements():
+        for row, col, element in self:
             m[col][row] = element
         return m
 
@@ -281,7 +275,7 @@ class Matrix:
     def cofactors(self):
         """ Returns the matrix of cofactors as a new object. """
         m = Matrix(self.numrows, self.numcols)
-        for row, col, element in self.elements():
+        for row, col, element in self:
             m[row][col] = self.cofactor(row, col)
         return m
 
@@ -306,7 +300,7 @@ class Matrix:
     def del_row(self, row_to_delete):
         """ Returns a new matrix with the specified row deleted. """
         m = Matrix(self.numrows - 1, self.numcols)
-        for row, col, element in self.elements():
+        for row, col, element in self:
             if row < row_to_delete:
                 m[row][col] = element
             elif row > row_to_delete:
@@ -316,7 +310,7 @@ class Matrix:
     def del_col(self, col_to_delete):
         """ Returns a new matrix with the specified column deleted. """
         m = Matrix(self.numrows, self.numcols - 1)
-        for row, col, element in self.elements():
+        for row, col, element in self:
             if col < col_to_delete:
                 m[row][col] = element
             elif col > col_to_delete:
@@ -326,7 +320,7 @@ class Matrix:
     def map(self, func):
         """ Forms a new matrix by mapping `func` to each element. """
         m = Matrix(self.numrows, self.numcols)
-        for row, col, element in self.elements():
+        for row, col, element in self:
             m[row][col] = func(element)
         return m
 
@@ -355,7 +349,7 @@ class Matrix:
 
     def len(self):
         """ Vectors only. Returns the length of the vector. """
-        return math.sqrt(sum(e ** 2 for e in self))
+        return math.sqrt(sum(e ** 2 for _, _, e in self))
 
     def dir(self):
         """ Vectors only. Returns a unit vector in the same direction. """

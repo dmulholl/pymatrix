@@ -274,7 +274,7 @@ class VectorOperationTests(unittest.TestCase):
     def test_direction(self):
         vals = [0, 0.6, 0.8]
         unitvector = x.dir()
-        for i, element in enumerate(unitvector):
+        for i, (row, col, element) in enumerate(unitvector):
             self.assertAlmostEqual(vals[i], element)
 
 

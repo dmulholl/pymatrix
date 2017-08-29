@@ -63,18 +63,20 @@ The shortcut `matrix()` function supports the syntax of all three static methods
 Iteration
 ---------
 
-Matrix objects are iterable. Iteration proceeds left-to-right by column, then top-to-bottom by row; i.e. the top-left element will be returned first, the bottom-right element will be returned last:
+Matrix objects are iterable. Iteration proceeds left-to-right by column, then top-to-bottom by row; i.e. the top-left element will be returned first, the bottom-right element will be returned last.
+
+The iterator returns a tuple containing the row number, the column number, and the element:
 
 ::: python
 
-    for element in matrix:
+    for row, col, element in matrix:
         ...
 
-Alternatively, the `elements()` method returns an iterator over a tuple including row and column indices:
+Alternatively, the `elements()` method returns an iterator over just the matrix elements:
 
 ::: python
 
-    for row, col, element in matrix.elements():
+    for element in matrix.elements():
         ...
 
 
@@ -153,7 +155,7 @@ Matrix objects support the following methods:
 
 ||  `.elements()`  ||
 
-    Iterator returning the tuple `(row, col, element)` for each element in the matrix.
+    Returns an iterator over the matrix's elements.
 
 ||  `.equals(other, delta=None)`  ||
 

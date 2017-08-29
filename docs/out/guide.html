@@ -3,23 +3,21 @@
   <head>
     <meta charset="utf-8">
     <title>Guide</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="fonts.css">
     <link rel="stylesheet" href="theme.css">
     <link rel="stylesheet" href="pygments.css">
     
+    
   </head>
+
   <body class="node-guide node">
 
     <header class="masthead">
-      <h1>
-        <a href="index.html">Pymatrix</a>
-      </h1>
-
+      <h1><a href="index.html">Pymatrix</a></h1>
       
         <p class="tagline">Pymatrix is a lightweight matrix library built in Python.</p>
       
-
       <nav class="menu">
         <input id="menu-check" type="checkbox"/>
         <label id="menu-label" for="menu-check" class="unselectable">
@@ -106,17 +104,20 @@ The shortcut <code>matrix()</code> function supports the syntax of all three sta
 Iteration
 </h2>
 <p>
-Matrix objects are iterable. Iteration proceeds left-to-right by column, then top-to-bottom by row; i.e. the top-left element will be returned first, the bottom-right element will be returned last:
+Matrix objects are iterable. Iteration proceeds left-to-right by column, then top-to-bottom by row; i.e. the top-left element will be returned first, the bottom-right element will be returned last.
+</p>
+<p>
+The iterator returns a tuple containing the row number, the column number, and the element:
 </p>
 <pre class="lang-python pygments" data-lang="python">
-<span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">matrix</span><span class="p">:</span>
+<span class="k">for</span> <span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">,</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">matrix</span><span class="p">:</span>
     <span class="o">...</span>
 </pre>
 <p>
-Alternatively, the <code>elements()</code> method returns an iterator over a tuple including row and column indices:
+Alternatively, the <code>elements()</code> method returns an iterator over just the matrix elements:
 </p>
 <pre class="lang-python pygments" data-lang="python">
-<span class="k">for</span> <span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">,</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">matrix</span><span class="o">.</span><span class="n">elements</span><span class="p">():</span>
+<span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">matrix</span><span class="o">.</span><span class="n">elements</span><span class="p">():</span>
     <span class="o">...</span>
 </pre>
 <h2 id="indexing">
@@ -249,7 +250,7 @@ Returns the dot/scalar product of the matrix with <code>other</code>. The dot pr
 </dt>
 <dd>
 <p>
-Iterator returning the tuple <code>(row, col, element)</code> for each element in the matrix.
+Returns an iterator over the matrix's elements.
 </p>
 </dd>
 <dt>
@@ -434,5 +435,6 @@ An invalid operation on a matrix object will raise a <code>MatrixError</code> ex
     </article>
 
     
+
   </body>
 </html>

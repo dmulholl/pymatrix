@@ -385,6 +385,12 @@ class Matrix:
         """ Returns the vector product: `self` x `other`. """
         return cross(self, other)
 
+    def elements(self):
+        """ Returns an iterator over the matrix's elements. """
+        for row in range(self.numrows):
+            for col in range(self.numcols):
+                yield self[row][col]
+
     @staticmethod
     def from_list(l):
         """ Instantiates a new matrix object from a list of lists. """

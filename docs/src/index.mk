@@ -63,7 +63,7 @@ Pymatrix doubles as a simple command line matrix analysis utility. Installing vi
 
 * [Github Homepage](https://github.com/dmulholland/pymatrix)
 * [Python Package Index](https://pypi.python.org/pypi/pymatrix/)
-* [Online Documentation](http://mulholland.xyz/docs/pymatrix/)
+* [Online Documentation](https://darrenmulholland.com/docs/pymatrix/)
 
 
 ### License

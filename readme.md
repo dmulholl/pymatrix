@@ -19,4 +19,4 @@ Pymatrix is a lightweight matrix library in Python. It supports a range of basic
 
 See the [documentation][docs] for details.
 
-[docs]: https://darrenmulholland.com/docs/pymatrix/
+[docs]: http://www.dmulholl.com/docs/pymatrix/

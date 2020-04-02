@@ -1,3 +1,3 @@
 title = "Pymatrix"
 
-tagline = "Pymatrix is a lightweight matrix library built in Python."
+tagline = "A simple matrix library built in Python."

@@ -18,7 +18,7 @@
 #     >>> 0.1 * 3 - 0.3
 #     5.551115123125783e-17
 #
-# Author: Darren Mulholland <darren@mulholland.xyz>
+# Author: Darren Mulholland
 # License: Public Domain
 # --------------------------------------------------------------------------
 

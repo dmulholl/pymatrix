@@ -22,8 +22,8 @@ Sample syntax::
     d = m.det()
     e = m.inv()
 
-See the `package documentation <http://mulholland.xyz/docs/pymatrix/>`_ or
-the library's `Github homepage <https://github.com/dmulholland/pymatrix>`_
+See the `package documentation <http://www.dmulholl.com/docs/pymatrix/>`_ or
+the library's `Github homepage <https://github.com/dmulholl/pymatrix>`_
 for further details.
 
 """
@@ -51,7 +51,7 @@ setup(
         ],
     },
     author = 'Darren Mulholland',
-    url = 'https://github.com/dmulholland/pymatrix',
+    url = 'https://github.com/dmulholl/pymatrix',
     license = 'Public Domain',
     description = (
         'A lightweight, easy-to-use matrix module in pure Python.'

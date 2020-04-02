@@ -5,7 +5,7 @@ meta title: Pymatrix &mdash; a lightweight matrix library in Python
 
 Pymatrix is a lightweight matrix library built in Python. It supports a range of basic linear algebra operations.
 
-::: python
+::: code python
 
     from pymatrix import matrix
 
@@ -61,9 +61,8 @@ Pymatrix doubles as a simple command line matrix analysis utility. Installing vi
 
 ### Links
 
-* [Github Homepage](https://github.com/dmulholland/pymatrix)
+* [Github Homepage](https://github.com/dmulholl/pymatrix)
 * [Python Package Index](https://pypi.python.org/pypi/pymatrix/)
-* [Online Documentation](https://darrenmulholland.com/docs/pymatrix/)
 
 
 ### License

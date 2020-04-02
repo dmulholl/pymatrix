@@ -8,18 +8,17 @@ Note that Pymatrix has been built for comfort, not for speed. If you have heavy-
 
 
 
-Instantiation
--------------
+## Instantiation
 
 You can instantiate a matrix object directly, optionally specifying a fill value:
 
-::: python
+::: code python
 
     m = Matrix(rows, cols, fill=0)
 
 You can instantiate a matrix object from a list of lists using the `from_list()` static method:
 
-::: python
+::: code python
 
     m = Matrix.from_list([
         [1, 2, 3],
@@ -28,7 +27,7 @@ You can instantiate a matrix object from a list of lists using the `from_list()`
 
 You can instantiate a matrix object from a string using the `from_string()` static method:
 
-::: python
+::: code python
 
     string = '''
     1 2 3/7
@@ -46,13 +45,13 @@ Row separators default to newlines, column separators default to spaces. Leading
 
 You can instantiate an n x n identity matrix using the `identity()` static method:
 
-::: python
+::: code python
 
     m = Matrix.identity(n)
 
 The shortcut `matrix()` function supports the syntax of all three static methods:
 
-::: python
+::: code python
 
     m = matrix([[1, 2, 3]])
     m = matrix('1 2 3')
@@ -60,33 +59,31 @@ The shortcut `matrix()` function supports the syntax of all three static methods
 
 
 
-Iteration
----------
+## Iteration
 
 Matrix objects are iterable. Iteration proceeds left-to-right by column, then top-to-bottom by row; i.e. the top-left element will be returned first, the bottom-right element will be returned last.
 
 The iterator returns a tuple containing the row number, the column number, and the element:
 
-::: python
+::: code python
 
     for row, col, element in matrix:
         ...
 
 Alternatively, the `elements()` method returns an iterator over just the matrix elements:
 
-::: python
+::: code python
 
     for element in matrix.elements():
         ...
 
 
 
-Indexing
---------
+## Indexing
 
 Matrices are indexed as two-dimensional arrays:
 
-::: python
+::: code python
 
     matrix[row][col] = element
 
@@ -96,159 +93,156 @@ Note that indices are zero-based in accordance with programming convention rathe
 
 
 
-Matrix Methods
---------------
+## Matrix Methods
 
 Matrix objects support the following methods:
 
-||  `.adjoint()`  ||
+[[  `.adjoint()`  ]]
 
     Returns the adjoint matrix as a new object.
 
-||  `.cofactor(row, col)`  ||
+[[  `.cofactor(row, col)`  ]]
 
     Returns the specified cofactor.
 
-||  `.cofactors()`  ||
+[[  `.cofactors()`  ]]
 
     Returns the matrix of cofactors as a new object.
 
-||  `.col(n)`  ||
+[[  `.col(n)`  ]]
 
     Returns an iterator over the specified column.
 
-||  `.cols()`  ||
+[[  `.cols()`  ]]
 
     Iterator returning a column iterator for each column in the matrix.
 
-||  `.colvec(n)`  ||
+[[  `.colvec(n)`  ]]
 
     Returns the specified column as a new column vector.
 
-||  `.copy()`  ||
+[[  `.copy()`  ]]
 
     Returns a copy of the matrix.
 
-||  `.cross(other)`  ||
+[[  `.cross(other)`  ]]
 
     Returns the cross/vector product of the matrix with `other` as a new matrix. The cross product is only defined for pairs of 3-dimensional column vectors.
 
-||  `.del_col(col)`  ||
+[[  `.del_col(col)`  ]]
 
     Returns a new matrix with the specified column deleted.
 
-||  `.del_row(row)`  ||
+[[  `.del_row(row)`  ]]
 
     Returns a new matrix with the specified row deleted.
 
-||  `.det()`  ||
+[[  `.det()`  ]]
 
     Returns the determinant of the matrix.
 
-||  `.dir()`  ||
+[[  `.dir()`  ]]
 
     Vectors only. Returns the unit vector in the direction of the vector.
 
-||  `.dot(other)`  ||
+[[  `.dot(other)`  ]]
 
     Returns the dot/scalar product of the matrix with `other`. The dot product is only defined for pairs of vectors.
 
-||  `.elements()`  ||
+[[  `.elements()`  ]]
 
     Returns an iterator over the matrix's elements.
 
-||  `.equals(other, delta=None)`  ||
+[[  `.equals(other, delta=None)`  ]]
 
     If `delta` is `None`, two matrices are equal if they are the same size and their corresponding elements are equal, i.e. `e1 == e2`.
 
     If `delta` is not `None`, two matrices are equal if they are the same size and their corresponding elements agree to within `delta`, i.e. `abs(e1 - e2) <= delta`.
 
-||  `.inv()`  ||
+[[  `.inv()`  ]]
 
     Returns the inverse matrix if it exists, otherwise raises `MatrixError`.
 
-||  `.is_invertible()`  ||
+[[  `.is_invertible()`  ]]
 
     True if the matrix is invertible. Note that determining whether a matrix is invertible is as computationally expensive as actually calculating the inverse.
 
-||  `.is_square()`  ||
+[[  `.is_square()`  ]]
 
     True if the matrix is square.
 
-||  `.len()`  ||
+[[  `.len()`  ]]
 
     Vectors only. Returns the length of the vector.
 
-||  `.map(func)`  ||
+[[  `.map(func)`  ]]
 
     Returns a new matrix formed by mapping `func` to each element.
 
-||  `.minor(row, col)`  ||
+[[  `.minor(row, col)`  ]]
 
     Returns the specified minor.
 
-||  `.rank()`  ||
+[[  `.rank()`  ]]
 
     Returns the rank of the matrix.
 
-||  `.ref()`  ||
+[[  `.ref()`  ]]
 
     Returns the row echelon form of the matrix.
 
-||  `.row(n)`  ||
+[[  `.row(n)`  ]]
 
     Returns an iterator over the specified row.
 
-||  `.rowop_add(r1, m, r2)`  ||
+[[  `.rowop_add(r1, m, r2)`  ]]
 
     In-place row operation. Adds `m` times row `r2` to row `r1`.
 
-||  `.rowop_multiply(row, m)`  ||
+[[  `.rowop_multiply(row, m)`  ]]
 
     In-place row operation. Multiplies the specified row by the scalar `m`.
 
-||  `.rowop_swap(r1, r2)`  ||
+[[  `.rowop_swap(r1, r2)`  ]]
 
     In-place row operation. Interchanges the two specified rows.
 
-||  `.rows()`  ||
+[[  `.rows()`  ]]
 
     Iterator returning a row iterator for each row in the matrix.
 
-||  `.rowvec(n)`  ||
+[[  `.rowvec(n)`  ]]
 
     Returns the specified row as a new row vector.
 
-||  `.rref()`  ||
+[[  `.rref()`  ]]
 
     Returns the reduced row echelon form of the matrix.
 
-||  `.trans()`  ||
+[[  `.trans()`  ]]
 
     Returns the transpose of the matrix as a new object.
 
 
 
-Module Functions
-----------------
+## Module Functions
 
 The `pymatrix` module exports the following functions:
 
-|| `dot(u, v)`  ||
+[[ `dot(u, v)`  ]]
 
     Returns `u . v` - the inner/scalar/dot product of the vectors `u` and `v`.
 
-|| `cross(u, v)`  ||
+[[ `cross(u, v)`  ]]
 
     Returns `u x v` - the vector/cross product of the 3D column vectors `u` and `v`.
 
-|| `matrix()`  ||
+[[ `matrix()`  ]]
 
     Shortcut function for instantiating `Matrix` objects; supports the syntax of the various static instantiation methods.
 
 
 
-Exceptions
-----------
+## Exceptions
 
 An invalid operation on a matrix object will raise a `MatrixError` exception.

@@ -1,7 +1,6 @@
-
 # Pymatrix
 
-Pymatrix is a lightweight matrix library in Python. It supports a range of basic linear algebra operations.
+A lightweight matrix library in Python.
 
     from pymatrix import matrix
 
@@ -17,6 +16,5 @@ Pymatrix is a lightweight matrix library in Python. It supports a range of basic
     d = m.det()
     e = m.inv()
 
-See the [documentation][docs] for details.
+* [Documentation](http://www.dmulholl.com/dev/pymatrix.html)
 
-[docs]: http://www.dmulholl.com/docs/pymatrix/

@@ -3,7 +3,7 @@
 Pymatrix
 ========
 
-A lightweight, easy-to-use matrix module in pure Python. Supports a range of
+A lightweighte matrix module in pure Python. Supports a range of
 basic linear algebra operations.
 
 Sample syntax::
@@ -21,11 +21,6 @@ Sample syntax::
 
     d = m.det()
     e = m.inv()
-
-See the `package documentation <http://www.dmulholl.com/docs/pymatrix/>`_ or
-the library's `Github homepage <https://github.com/dmulholl/pymatrix>`_
-for further details.
-
 """
 
 import os
@@ -54,7 +49,7 @@ setup(
     url = 'https://github.com/dmulholl/pymatrix',
     license = 'Public Domain',
     description = (
-        'A lightweight, easy-to-use matrix module in pure Python.'
+        'A lightweight matrix module in pure Python.'
     ),
     long_description = __doc__,
     classifiers = [

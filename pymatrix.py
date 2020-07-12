@@ -17,9 +17,6 @@
 #
 #     >>> 0.1 * 3 - 0.3
 #     5.551115123125783e-17
-#
-# Author: Darren Mulholland
-# License: Public Domain
 # --------------------------------------------------------------------------
 
 import fractions
@@ -33,11 +30,7 @@ import textwrap
 import shutil
 
 
-# Library version.
-__version__ = '3.0.0'
-
-
-# Exports.
+__version__ = '3.0.1'
 __all__ = ['matrix', 'Matrix', 'MatrixError', 'dot', 'cross']
 
 
@@ -523,8 +516,8 @@ Options:
   -p, --parser <str>    One of 'int', 'float', 'complex', 'fraction'.
 
 Flags:
-      --help            Print the application's help text and exit.
-      --version         Print the application's version number and exit.
+  -h, --help            Print this help text and exit.
+  -v, --version         Print the application's version number and exit.
 """ % os.path.basename(sys.argv[0])
 
 
